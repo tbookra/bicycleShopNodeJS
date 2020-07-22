@@ -1,6 +1,6 @@
 const mysql = require("./mysqlpool");
 const dotenv = require("dotenv");
-const { DATE } = require("mysql2/lib/constants/types");
+
 dotenv.config();
 let DB = process.env.DB_NAME;
 
