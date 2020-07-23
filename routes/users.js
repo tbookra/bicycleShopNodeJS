@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getAllUsers, createUser, getUser } = require("../models/mySql/Users");
+const { getAllUsers, getUser } = require("../models/mySql/Users");
 /* GET users listing. */
 
 //get all users

@@ -2,7 +2,7 @@ const mysql = require("./mysqlpool");
 const dotenv = require("dotenv");
 
 dotenv.config();
-let DB = process.env.DB_NAME;
+const DB = process.env.DB_NAME;
 
 let getAllUsers = () => {
   return mysql.execute(`SELECT * FROM ${DB}.users`);
