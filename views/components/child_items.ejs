@@ -1,0 +1,14 @@
+<% if(childarr.length>0) { %>
+    <% for(let item of childarr) { %>
+    <div class="card bg-dark text-white">
+        <img src="/images/store/<%=item.product_img%>" class="card-img" alt="item">
+        <div class="card-img-overlay">
+            <h5 class="card-title"><%=item.product_name%></h5>
+            <p class="card-text"><%=item.price%></p>
+            <p class="card-text"><a href="/child/auth/<%=item.product_id%>">Buy now </a></p>
+        </div>
+    </div>
+    <% } %>
+    <% } else { %>
+    <div>cant find any location with this name</div>
+    <% } %>

@@ -1,0 +1,14 @@
+<% if(mountarr.length>0) { %>
+    <% for(let place of mountarr) { %>
+    <div class="card bg-dark text-white">
+        <img src="/images/store/<%=place.product_img%>" class="card-img" alt="place">
+        <div class="card-img-overlay">
+            <h5 class="card-title"><%=place.product_name%></h5>
+            <p class="card-text"><%=place.price%></p>
+            <p class="card-text"><a href="/mountain/auth/<%=place.product_id%>">Buy now </a></p>
+        </div>
+    </div>
+    <% } %>
+    <% } else { %>
+    <div>cant find any location with this name</div>
+    <% } %>
