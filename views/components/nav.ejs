@@ -1,0 +1,33 @@
+<% let navarr = [{title:"home", url:"/"}, {title:"קורקינט חשמלי", url:"/electric"},
+ {title:"אופני הרים", url:"/mountain"},{title:"אופני ילדים", url:"/child"}] %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a  class="navbar-brand" 
+    <% if(loginname) { %>
+    href="/shopping"
+    <% } else { %>
+        href="#"
+        <% } %>
+    ><img style="height: 4vh;" src="images/shopping_cart.png" /></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <% for(let item of navarr){ %>
+            <li class="nav-item <%=cpage==item.url?'active':''%>">
+                <a class="nav-link" href="<%=item.url%>"><%=item.title%></a>
+            </li>
+            <% } %>
+           
+            <li class="nav-item <%=cpage=='/auth'?'active':''%>">
+                <a class="nav-link" href="/auth">Login</a>
+            </li>
+        
+        </ul>
+        <form class="form-inline my-2 my-lg-0" method="GET" action="/">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>

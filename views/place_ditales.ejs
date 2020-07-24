@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+    <script src="/javascripts/addcart.js" defer async></script>
+   
+</head>
+
+<body>
+    <div class="container">
+        <%- include("components/nav", {cpage:cpage}) %>
+        <main class="main main1">
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="/images/store/<%=place.product_img%>" class="card-img" alt="place image">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><%=place.product_name%></h5>
+                            <p class="card-text"><%=place.price%></p>
+                            <p class="card-text"><small class="text-muted">כל הזכויות שמורות. עד גמר המלאי!</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div><br>
+           
+        </main>
+        <div class="purchase">
+            <h2>Order Here</h2>
+            <form action="/shopping" method="post">
+              <input type="text" name="itemID" id="itemID" value=<%=place.product_id%>><br>
+              <input type="text" name="name" id="name" value=<%=place.product_name%>><br>
+              <input type="text" name="price" id="price"  value=<%=place.price%>><br>
+              <input type="number" name="amount" id="amount" ><br>
+              <!-- <input type="checkbox" name="cb1" id="" value="val1">
+              <input type="checkbox" name="cb2" id="" value="val2"><br> -->
+             <label for="r1">white</label> <input type="radio" name="r1" id="" value="white">
+             <label for="r1">red</label> <input type="radio" name="r1" id="" value="red">
+             <label for="r1">black</label> <input type="radio" name="r1" id="" value="black">
+             <label for="r1">yellow</label> <input type="radio" name="r1" id="" value="yellow">
+             <label for="r1">blue</label> <input type="radio" name="r1" id="" value="blue"><br>
+              <button class="btn btn-primary">send</button>
+          </form>
+                         </div>
+                       <!-- <form action="/" method="POST" class="hide">
+                            <div class="form-group">
+                                <div></div>
+                                <label for="FullName">Full name</label>
+                                <input type="text" class="form-control" id="FullName" aria-describedby="emailHelp">
+                                </div>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Email address</label>
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=Email@email.com>
+                              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Card Number</label>
+                              <input type="text" class="form-control" id="exampleInputPassword1">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">last Date</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="00/00">
+                              </div>
+                            <div class="form-group form-check">
+                              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                              <label class="form-check-label" for="exampleCheck1">I am agree to this turms</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                          </form> -->
+        <footer></footer>
+    </div>
+</body>
+
+</html>
