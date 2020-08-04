@@ -1,10 +1,10 @@
-const mysql = require("./mysqlpool");
+const mysql = require("./mySql/mysqlPool");
 
 
 let newOrder = (loginname, itemID, amount, color) => {
   return mysql.execute(
 
-    "INSERT INTO bicycle_shop.orders(user_name, item_id, amount_ordered, color) VALUES (?,?,?,?);",
+    "INSERT INTO project_database.orders(user_id, item_id, amount_ordered, color) VALUES (?,?,?,?);",
     [loginname, itemID, amount, color]
   );
  
@@ -56,23 +56,23 @@ let cancelOrder = (orderNumber) => {
 
 let selectUsers = () => {
           return mysql.execute(
-'SELECT * FROM bicycle_shop.users;'
+'SELECT * FROM project_database.users;'
            );
         };
 
-let newUser = (username, password, name) => {
+let newUser = (username, password, name,dark_mode) => {
     return mysql.execute(
     
-        "INSERT INTO bicycle_shop.users(username, password, name) VALUES (?,?,?);",
-        [username, password, name]
+        "INSERT INTO project_database.users(email, password, full_name, dark_mode,is_admin,register_date,last_access_date) VALUES (?,?,?,?,0,now(),now());",
+        [username, password, name,dark_mode]
     );    
     };
-let updateUser = (newUsername, password, name,oldUsername) => {
+let updateUser = (email, password, full_name,oldUsername) => {
     return mysql.execute(
     
-        `UPDATE bicycle_shop.users
-        SET username = ?, password = ?, name = ? WHERE username = ?;`,
-        [newUsername, password, name,oldUsername]
+        `UPDATE project_database.users
+        SET email = ?, password = ?, full_name = ? WHERE email = ?;`,
+        [email, password, full_name,oldUsername]
     );    
     };
 

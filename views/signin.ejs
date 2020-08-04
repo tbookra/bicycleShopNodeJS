@@ -25,16 +25,24 @@
                 <span><label class="formRows" for="newusername">USERNAME:</label></span><input type="text" name="us" id="newusername"><br>
                 <span><label class="formRows" for="newpassword">PASSWORD:</label></span><input type="password" name="ps" id="newpassword"><br>
                 <span><label class="formRows" for="name">NAME:</label></span><input type="text" name="name" id="name"><br>
+                <span><label class="formRows" for="brightMode">Bright Mode</label></span><input type="radio" name="darkMode" id="brightMode" value=0 checked><br>
+                <span><label class="formRows" for="darkMode">Dark Mode</label></span><input type="radio" name="darkMode" id="darkMode" value=1><br>
                 <button>send</button>
-                <div><%= err %></div><br>
+              
             </form>
          
             
         </main><br><br>
-     
+        <div>
+            <ul>
+                <% for (let item of errArrey) { %>
+                <li><%= item%></li>
+                <% } %>
+            </ul>
+           </div><br>
         <ol>
             <% for (let item of dbusers){ %>
-            <li><%= item.username %></li>
+            <li><%= item.email %></li>
             <% } %>
         </ol>
         <footer></footer>

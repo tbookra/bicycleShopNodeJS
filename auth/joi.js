@@ -3,14 +3,21 @@ const Joi = require("@hapi/joi");
 const schemaAuth = Joi.object({
   us: Joi.string().email().min(6).required().messages({
     'string.email': 'email is in incorrect form!',
-'string.email.min': 'not enough letters!'
+    'string.min': 'require an email with more letters!',
+    'string.empty': 'An email is required',
   }),
-  ps: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{8,30}$")).required(),
-  name: Joi.required(),
+  ps: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{8,30}$")).required().messages({
+    'string.empty': 'A password is required',
+    'string.pattern.base': 'Bad password!!. A password must contain at least 8 charecters, no more than 30 charerters, at least one digit and one capital letter.',
+  }),
+  nname: Joi.string().required().messages({
+    'string.min': "Your name is required!"
+  }),
+  
 });
 
-const validateInputAsync = (data) => {
-  return schemaAuth.validateAsync(data, { abortEarly: false });
+const validateInputAsync = ({us,ps,nname}) => {
+return schemaAuth.validateAsync({us,ps,nname}, { abortEarly: false });
 };
 
 module.exports.validateInputAsync = validateInputAsync;

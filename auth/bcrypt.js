@@ -11,13 +11,17 @@ const generatePassword = (password) => {
     });
   });
 };
-
+// const generatePasswordSync =(password) =>{
+//   let salt = bcrypt.genSaltSync(10);
+//   let hash = bcrypt.hashSync(password, salt);
+// }
 const checkPassword = (password, hash) => {
   return bcrypt.compare(password, hash);
 };
 
 module.exports.generatePassword = generatePassword;
 module.exports.checkPassword = checkPassword;
+// module.exports.generatePasswordSync = generatePasswordSync;
 
 // const test = async () => {
 //   try {

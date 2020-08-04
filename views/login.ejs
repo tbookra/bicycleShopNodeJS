@@ -27,8 +27,15 @@
               <span><label class="formRows" for="password">PASSWORD:</label></span><span> <input type="password" name="password" id="password"> </span><br>
                 <button>send</button>
             </form>
-            <div><%=err%></div>
+            
         </main>
+        <div>
+            <ul>
+                <% for (let item of errArrey) { %>
+                <li><%= item%></li>
+                <% } %>
+            </ul>
+           </div><br>
         <br><br>
             <div><a href="/signin">SIGN IN</a></div>
             <div><a href="/update">UPDATE</a></div>

@@ -21,23 +21,28 @@
     <div class="container">
         <%- include("components/nav", {cpage:cpage}) %>
         <main class="main">
-         
+ 
             <form action="/update" method="post">
               
                 <% for (let item of dbusers){ %>
-                    <% if(item.name == loginname){ %>
-                <label class="formRows"  for="ous">current username</label><input type="text" name="ous" id="ous" value="<%= item.username %>"><br>
-                <label class="formRows"  for="nus">new username</label><input type="text" name="us" id="nus" value="<%= item.username %>"><br>
+                    <% if(item.full_name == loginname){ %>
+                <label class="formRows"  for="ous">current username</label><input type="text" name="ous" id="ous" value="<%= item.email %>"><br>
+                <label class="formRows"  for="nus">new username</label><input type="text" name="us" id="nus" value="<%= item.email %>"><br>
                 <label class="formRows"  for="nps">new password</label><input type="password" name="nps" id="nps"><br>
-                <label class="formRows"  for="nname">new name</label><input type="text" name="nname" id="nname" value="<%= item.name %>"><br>
+                <label class="formRows"  for="nname">new name</label><input type="text" name="nname" id="nname" value="<%= item.full_name %>"><br>
                 <% } %>
                 <% } %> 
                 <button>send</button>
-            </form>
-         
+            </form><br>
             
         </main><br><br>
-     
+        <div>
+            <ul>
+                <% for (let item of errArrey) { %>
+                <li><%= item%></li>
+                <% } %>
+            </ul>
+           </div>
       
         <footer></footer>
     </div>
