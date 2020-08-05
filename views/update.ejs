@@ -15,13 +15,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
     </script>
+    <script src="/javascripts/updateAuthAlerts.js" defer async></script>
 </head>
 
 <body>
     <div class="container">
         <%- include("components/nav", {cpage:cpage}) %>
         <main class="main">
- 
+ <br>
             <form action="/update" method="post">
               
                 <% for (let item of dbusers){ %>
@@ -29,13 +30,14 @@
                 <label class="formRows"  for="ous">current username</label><input type="text" name="ous" id="ous" value="<%= item.email %>"><br>
                 <label class="formRows"  for="nus">new username</label><input type="text" name="us" id="nus" value="<%= item.email %>"><br>
                 <label class="formRows"  for="nps">new password</label><input type="password" name="nps" id="nps"><br>
-                <label class="formRows"  for="nname">new name</label><input type="text" name="nname" id="nname" value="<%= item.full_name %>"><br>
+                <label class="formRows"  for="name">new name</label><input type="text" name="name" id="name" value="<%= item.full_name %>"><br>
                 <% } %>
                 <% } %> 
                 <button>send</button>
             </form><br>
             
         </main><br><br>
+        <div id="clientErr"></div><br>
         <div>
             <ul>
                 <% for (let item of errArrey) { %>
