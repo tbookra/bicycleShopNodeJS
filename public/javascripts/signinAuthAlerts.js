@@ -1,7 +1,7 @@
 window.addEventListener('load', () =>{
     console.log('I am talking to you too!!');
 
-const good = new RegExp("^[a-zA-Z0-9]{8,30}$");
+const good = new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,30})$/);
 const goodE = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
 const newusername = document.getElementById('newusername');
 const newpassword = document.getElementById('newpassword');

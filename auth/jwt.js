@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const generateToken = (data) => {
   return new Promise((ok, not) => {
-    jwt.sign(data, process.env.TOKENKEY, (err, token) => {
+    jwt.sign({_id: data}, process.env.TOKENKEY,{ expiresIn: "1h" }, (err, token) => {
       if (err) not(err);
       else ok(token);
     });

@@ -6,7 +6,7 @@ const schemaAuth = Joi.object({
     'string.min': 'require an email with more letters!',
     'string.empty': 'An email is required',
   }),
-  ps: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{8,30}$")).required().messages({ 
+  ps: Joi.string().pattern(new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,30})$/)).required().messages({ 
     'string.empty': 'A password is required',
     'string.pattern.base': 'Bad password!!. A password must contain at least 8 charecters, no more than 30 charerters, at least one digit and one capital letter.',
   }),
