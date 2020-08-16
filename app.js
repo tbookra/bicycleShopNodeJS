@@ -17,6 +17,7 @@ const shoppingCartRouter = require('./routes/shopping_cart');
 const authRouter = require("./routes/auth");
 const newUsersRouter = require('./routes/signin');
 const updateUsersRouter = require('./routes/update');
+const logoutRouter = require('./routes/logout');
 
 
 
@@ -45,7 +46,7 @@ app.use("/shopping", shoppingCartRouter);
 app.use("/auth", authRouter);
 app.use("/signin", newUsersRouter);
 app.use("/update", updateUsersRouter);
-
+app.use("/logout", logoutRouter);
 
 // catch 404 and forward to error handler
 

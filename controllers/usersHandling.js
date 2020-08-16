@@ -60,9 +60,10 @@ const login = async (req, res) => {
   res.redirect("/");
 
   };
-let token = module.exports.token;
+
 const logout = (req, res) => {
     req.session.name = undefined;
+    req.session.auth_token = undefined;
     res.redirect("/");
   };
 
