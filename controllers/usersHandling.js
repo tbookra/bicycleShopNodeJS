@@ -3,9 +3,9 @@ const clients = require('../models/clients');
 const joiAuth = require("../auth/joi");
 const bcrypt = require("../auth/bcrypt");
 const JWT = require("../auth/jwt");
-const fetchToken = require('../services/fetchJwtToHeaders');
 const authJoiMiddleware = require('../controllers/auth');
 
+let token_id = undefined;
 
 const loginPage = async (req, res) => {
   try{
@@ -30,8 +30,8 @@ const login = async (req, res) => {
       res.redirect("/auth");
       return;
     };
-    let ttt = module.exports.userList;
-    let user = ttt.filter((user) => user.email == username);
+    let usersList = module.exports.userList;
+    let user = usersList.filter((user) => user.email == username);
     if (user.length == 0) {  // if there is no such user in the database
       req.session.loginErr = ["the username not exist"];
       res.redirect("/auth");
@@ -39,11 +39,9 @@ const login = async (req, res) => {
     let passAuth =await bcrypt.checkPassword(password,user[0].password);
         if (passAuth) { // this part is where everything is right
         req.session.name = user[0].full_name;
-        // console.log(user[0]);
-        let token_id = await JWT.generateToken(user[0].email);
-        res.header('app_token',token_id);
-      //  module.exports.token = token_id;
-      //  let sendToken = loginPage.header('token',token_id);
+        let lastAccess = await clients.last_access_date(user[0].email);
+        token_id = await JWT.generateToken(user[0].email);
+        req.session.auth_token = token_id;
         res.redirect("/");
        
       } else {  // if user exists but a wrong password
@@ -56,8 +54,8 @@ const login = async (req, res) => {
   }catch (e) {
     console.log(e)
   }
-  console.log('export token', module.exports.token);
-  console.log('req.headers',req.headers);
+  res.redirect("/");
+
   };
 let token = module.exports.token;
 const logout = (req, res) => {

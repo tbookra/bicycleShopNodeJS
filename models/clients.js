@@ -62,11 +62,18 @@ let selectUsers = () => {
 
 let newUser = (username, password, name,dark_mode) => {
     return mysql.execute(
-    
         "INSERT INTO project_database.users(email, password, full_name, dark_mode,is_admin,register_date,last_access_date) VALUES (?,?,?,?,0,now(),now());",
         [username, password, name,dark_mode]
     );    
     };
+let last_access_date = (email) => {
+      return mysql.execute(
+        `UPDATE project_database.users
+        SET last_access_date = now() WHERE email = ?;`,
+        [email]
+         
+      );    
+      };
 let updateUser = (email, password, full_name,oldUsername) => {
     return mysql.execute(
     
@@ -85,4 +92,5 @@ module.exports.getData = getData;
 module.exports.cancelOrder = cancelOrder;
 module.exports.selectUsers = selectUsers;
 module.exports.newUser = newUser;
+module.exports.last_access_date = last_access_date;
 module.exports.updateUser = updateUser;
