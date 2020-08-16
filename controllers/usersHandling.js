@@ -24,7 +24,8 @@ const loginPage = async (req, res) => {
 
 const login = async (req, res) => {
   try{
-    let { username, password } = req.body;
+    let username = req.body.username;
+    let password = req.body.password;
     if (!username || !password) { // handles with if no name was asigned
       req.session.loginErr = ["username or password missing"];
       res.redirect("/auth");
@@ -40,7 +41,9 @@ const login = async (req, res) => {
         if (passAuth) { // this part is where everything is right
         req.session.name = user[0].full_name;
         let lastAccess = await clients.last_access_date(user[0].email);
-        token_id = await JWT.generateToken(user[0].email);
+        let expiresIn = req.body.rememberMe ? true : false;
+        token_id = await JWT.generateToken(user[0].email,expiresIn);
+        console.log('token',token_id);
         req.session.auth_token = token_id;
         res.redirect("/");
        
