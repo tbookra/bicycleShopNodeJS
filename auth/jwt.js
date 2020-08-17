@@ -1,25 +1,27 @@
 const jwt = require("jsonwebtoken");
 
 const generateToken = (data, rememberMe) => {
-  let expires_in = rememberMe ? "30d" : "1h";
-  return new Promise((ok, not) => {
-    jwt.sign({_id: data}, process.env.TOKENKEY,{ expiresIn: expires_in }, (err, token) => {
-      if (err) not(err);
-      else ok(token);
-    });
+  return new Promise((resolve, reject) => {
+    jwt.sign(
+      { _id: data },
+      process.env.TOKEN_KEY,
+      { expiresIn: rememberMe ? "30d" : "1h" },
+      (err, token) => {
+        if (err) reject(err);
+        else resolve(token);
+      }
+    );
   });
 };
 
 const verifyToken = (token) => {
-  return new Promise((ok, not) => {
-    jwt.verify(token, process.env.TOKENKEY, (err, decoded) => {
-      if (err) not(err);
-      else ok(decoded);
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, process.env.TOKEN_KEY, (err, decoded) => {
+      if (err) reject(err);
+      else resolve(decoded);
     });
   });
 };
-
-
 
 module.exports.generateToken = generateToken;
 module.exports.verifyToken = verifyToken;

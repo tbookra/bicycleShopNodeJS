@@ -4,7 +4,6 @@ const joiAuth = require("../auth/joi");
 const joiAuthUpdate = require("../auth/joiUpdate");
 const bcrypt = require("../auth/bcrypt");
 const JWT = require("../auth/jwt");
-const authJoiMiddleware = require("../controllers/auth");
 
 let token_id = undefined;
 
@@ -25,7 +24,7 @@ const loginPage = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const {email,password} = req.body;
+    const { email, password } = req.body;
     if (!email || !password) {
       // handles with if no name was asigned
       req.session.loginErr = ["email or password missing"];
@@ -33,7 +32,7 @@ const login = async (req, res) => {
       return;
     }
     let user1 = await clients.getUser(email);
-    console.log('user1',user1);
+
     let usersList = module.exports.userList;
     let user = usersList.filter((user) => user.email == email);
 
@@ -62,7 +61,7 @@ const login = async (req, res) => {
   } catch (e) {
     console.log(e);
   }
- };
+};
 
 const logout = (req, res) => {
   req.session.name = undefined;
@@ -87,7 +86,7 @@ const signinPage = async (req, res) => {
 };
 
 const signin = async (req, res) => {
-  const {email, password,full_name,darkMode} = req.body
+  const { email, password, full_name, darkMode } = req.body;
   try {
     let dbusers = await clients.selectUsers();
     let user_exist = false;
@@ -104,13 +103,8 @@ const signin = async (req, res) => {
     } else {
       // then here we create the new user
       await joiAuth.validateInputAsync(req.body);
-      let hash = await bcrypt.generatePassword(password);
-      data = await clients.newUser(
-        email,
-        hash,
-        full_name,
-        darkMode
-      );
+      let hash = await bcrypt.hashPassword(password);
+      data = await clients.newUser(email, hash, full_name, darkMode);
       await JWT.generateToken(email);
       res.redirect("/auth");
     }
@@ -139,15 +133,11 @@ const updatePage = async (req, res) => {
   }
 };
 const update = async (req, res) => {
-  const {email,password,full_name} = req.body
+  const { email, password, full_name } = req.body;
   try {
-    await joiAuthUpdate.validateInputAsync(password,full_name);
-    let cryptPassword = await bcrypt.generatePassword(password);
-    await clients.updateUser(
-      cryptPassword,
-      full_name,
-      email,
-    );
+    await joiAuthUpdate.validateInputAsync(password, full_name);
+    let cryptPassword = await bcrypt.hashPassword(password);
+    await clients.updateUser(cryptPassword, full_name, email);
   } catch (e) {
     console.log(e);
     req.session.updateErr = [...e.details.map((item) => item.message)];
