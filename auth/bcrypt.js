@@ -11,29 +11,11 @@ const generatePassword = (password) => {
     });
   });
 };
-// const generatePasswordSync =(password) =>{
-//   let salt = bcrypt.genSaltSync(10);
-//   let hash = bcrypt.hashSync(password, salt);
-// }
+
+
 const checkPassword = (password, hash) => {
   return bcrypt.compare(password, hash);
 };
 
 module.exports.generatePassword = generatePassword;
 module.exports.checkPassword = checkPassword;
-// module.exports.generatePasswordSync = generatePasswordSync;
-
-// const test = async () => {
-//   try {
-//     let hash = await generatePassword("afoiwejoifj");
-//     // let hash = await checkPassword(
-//     //   "afoiwejoifj",
-//     //   "$2a$10$DWXpZmw5fGB0T2RE1bkn1.EmwAyR01H6g12fuNKruvXe8cR1Tdrpa"
-//     // );
-//     console.log(hash);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
-
-// test();

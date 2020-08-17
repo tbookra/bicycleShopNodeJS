@@ -23,9 +23,9 @@
         <%- include("components/nav", {cpage:cpage}) %>
         <main class="main">
             <form action="/signin" method="post">
-                <span><label class="formRows" for="newusername">USERNAME:</label></span><input type="text" name="us" id="newusername"><br>
-                <span><label class="formRows" for="newpassword">PASSWORD:</label></span><input type="password" name="ps" id="newpassword"><br>
-                <span><label class="formRows" for="name">NAME:</label></span><input type="text" name="name" id="name"><br>
+                <span><label class="formRows" for="email">EMAIL:</label></span><input type="text" name="email" id="email"><br>
+                <span><label class="formRows" for="password">PASSWORD:</label></span><input type="password" name="password" id="password"><br>
+                <span><label class="formRows" for="full_name">FULL NAME:</label></span><input type="text" name="full_name" id="full_name"><br>
                 <span><label class="formRows" for="brightMode">Bright Mode</label></span><input type="radio" name="darkMode" id="brightMode" value=0 checked><br>
                 <span><label class="formRows" for="darkMode">Dark Mode</label></span><input type="radio" name="darkMode" id="darkMode" value=1><br>
                 <button>send</button>
@@ -42,11 +42,7 @@
                 <% } %>
             </ul>
            </div><br>
-        <ol>
-            <% for (let item of dbusers){ %>
-            <li><%= item.email %></li>
-            <% } %>
-        </ol>
+       
         <footer></footer>
     </div>
 </body>

@@ -26,11 +26,11 @@
             <form action="/update" method="post">
               
                 <% for (let item of dbusers){ %>
-                    <% if(item.full_name == loginname){ %>
-                <label class="formRows"  for="ous">current username</label><input type="text" name="ous" id="ous" value="<%= item.email %>"><br>
-                <label class="formRows"  for="nus">new username</label><input type="text" name="us" id="nus" value="<%= item.email %>"><br>
-                <label class="formRows"  for="nps">new password</label><input type="password" name="nps" id="nps"><br>
-                <label class="formRows"  for="name">new name</label><input type="text" name="name" id="name" value="<%= item.full_name %>"><br>
+                    <% if(item.email == loginname){ %>
+                <div><%= item.email %></div><br>
+                <input type="hidden" name="email" value="<%= item.email %>"><br>
+                <label class="formRows"  for="password">new password</label><input type="password" name="password" id="password"><br>
+                <label class="formRows"  for="full_name">new name</label><input type="text" name="full_name" id="full_name" value="<%= item.full_name %>"><br>
                 <% } %>
                 <% } %> 
                 <button>send</button>

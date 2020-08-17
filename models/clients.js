@@ -1,5 +1,7 @@
 const mysql = require("./mySql/mysqlPool");
 
+const DB = process.env.DB_NAME;
+
 let newOrder = (loginname, itemID, amount, color) => {
   return mysql.execute(
     "INSERT INTO project_database.orders(user_id, item_id, amount_ordered, color) VALUES (?,?,?,?);",
@@ -49,18 +51,23 @@ let cancelOrder = (orderNumber) => {
 };
 
 let selectUsers = () => {
-  return mysql.execute("SELECT * FROM project_database.users;");
+  return mysql.execute(`SELECT * FROM ${DB}.users;`);
+};
+
+let getUser = (user) => {
+  return mysql.execute(`SELECT * FROM ${DB}.users WHERE email = ?;`)
+  ,[user];
 };
 
 let newUser = (username, password, name, dark_mode) => {
   return mysql.execute(
-    "INSERT INTO project_database.users(email, password, full_name, dark_mode,is_admin,register_date,last_access_date) VALUES (?,?,?,?,0,now(),now());",
+    `INSERT INTO ${DB}.users(email, password, full_name, dark_mode,is_admin,register_date,last_access_date) VALUES (?,?,?,?,0,now(),now());`,
     [username, password, name, dark_mode]
   );
 };
 let last_access_date = (email) => {
   return mysql.execute(
-    `UPDATE project_database.users
+    `UPDATE ${DB}.users
         SET last_access_date = now() WHERE email = ?;`,
     [email]
   );
@@ -72,11 +79,11 @@ let last_access_date = (email) => {
 //     [email, password, full_name, oldUsername]
 //   );
 // };
-let updateUser = (email, password, full_name, oldUsername) => {
+let updateUser = (password, full_name, email) => {
   return mysql.execute(
-    `UPDATE project_database.users
-        SET email = ?, password = ?, full_name = ? WHERE email = ?;`,
-    [email, password, full_name, oldUsername]
+    `UPDATE ${DB}.users
+        SET password = ?, full_name = ? WHERE email = ?;`,
+    [password, full_name, email]
   );
 };
 
@@ -86,6 +93,7 @@ module.exports.totalOrder = totalOrder;
 module.exports.getData = getData;
 module.exports.cancelOrder = cancelOrder;
 module.exports.selectUsers = selectUsers;
+module.exports.getUser = getUser;
 module.exports.newUser = newUser;
 module.exports.last_access_date = last_access_date;
 module.exports.updateUser = updateUser;

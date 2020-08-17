@@ -3,17 +3,17 @@ window.addEventListener('load', () =>{
 
 const good = new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,30})$/);
 const goodE = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
-const username = document.getElementById('username');
+const email = document.getElementById('email');
 const password = document.getElementById('password');
 const clientErr = document.getElementById('clientErr');
 
 
-username.addEventListener('change', e => {
-    if(username.value.match(goodE)) {
-        username.style.backgroundColor = '#1ecc71';
+email.addEventListener('change', e => {
+    if(email.value.match(goodE)) {
+        email.style.backgroundColor = '#1ecc71';
         clientErr.innerHTML = ''
     } else {
-        username.style.backgroundColor = '#eb0325';
+        email.style.backgroundColor = '#eb0325';
         clientErr.innerHTML= 'Invalid Email!!! Please try again';
     }
 });

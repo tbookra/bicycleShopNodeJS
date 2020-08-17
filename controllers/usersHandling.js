@@ -1,6 +1,7 @@
 const express = require("express");
 const clients = require("../models/clients");
 const joiAuth = require("../auth/joi");
+const joiAuthUpdate = require("../auth/joiUpdate");
 const bcrypt = require("../auth/bcrypt");
 const JWT = require("../auth/jwt");
 const authJoiMiddleware = require("../controllers/auth");
@@ -24,28 +25,28 @@ const loginPage = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    let username = req.body.username;
-    let password = req.body.password;
-    if (!username || !password) {
+    const {email,password} = req.body;
+    if (!email || !password) {
       // handles with if no name was asigned
-      req.session.loginErr = ["username or password missing"];
+      req.session.loginErr = ["email or password missing"];
       res.redirect("/auth");
       return;
     }
+    let user1 = await clients.getUser(email);
+    console.log('user1',user1);
     let usersList = module.exports.userList;
-    //change email/username to same name
-    let user = usersList.filter((user) => user.email == username);
+    let user = usersList.filter((user) => user.email == email);
 
-    if (user.length == 0) {
+    if (user1.length == 0) {
       // if there is no such user in the database
-      req.session.loginErr = ["the username not exist"];
+      req.session.loginErr = ["the email not exist"];
       res.redirect("/auth");
     } else {
       let passAuth = await bcrypt.checkPassword(password, user[0].password);
       if (passAuth) {
         // this part is where everything is right
-        req.session.name = user[0].full_name;
-        let lastAccess = await clients.last_access_date(user[0].email);
+        req.session.name = user[0].email;
+        await clients.last_access_date(user[0].email);
         let expiresIn = req.body.rememberMe ? true : false;
         token_id = await JWT.generateToken(user[0].email, expiresIn);
         console.log("token", token_id);
@@ -53,7 +54,7 @@ const login = async (req, res) => {
         res.redirect("/");
       } else {
         // if user exists but a wrong password
-        req.session.loginErr = ["username or password incorrect"];
+        req.session.loginErr = ["email or password incorrect"];
 
         res.redirect("/auth");
       }
@@ -61,9 +62,7 @@ const login = async (req, res) => {
   } catch (e) {
     console.log(e);
   }
-  //delete
-  res.redirect("/");
-};
+ };
 
 const logout = (req, res) => {
   req.session.name = undefined;
@@ -76,7 +75,6 @@ const signinPage = async (req, res) => {
     req.session.loginErr = [];
     req.session.updateErr = [];
     let errArrey = req.session.signinErr ? req.session.signinErr : [];
-    //listing user in the UI need to be delete
     let dbusers = await clients.selectUsers();
     res.render("signin", {
       ...req.nav,
@@ -89,44 +87,31 @@ const signinPage = async (req, res) => {
 };
 
 const signin = async (req, res) => {
-  // const {email, password} = req.body
+  const {email, password,full_name,darkMode} = req.body
   try {
     let dbusers = await clients.selectUsers();
-    let us = false;
+    let user_exist = false;
     for (let user of dbusers[0]) {
-      if (req.body.us && req.body.us == user.email) {
+      if (email && email == user.email) {
         //finds if a user already exsists in the database
-        us = true;
+        user_exist = true;
         break;
       }
     }
-    if (us) {
+    if (user_exist) {
       req.session.signinErr = ["user already exist"];
       res.redirect("/signin");
     } else {
-      // then here we creat the new user
-      console.log("i have got this far.....");
-      // let data = await joiAuth.validateInputAsync(req.body);
-      let data = await joiAuth.validateInputAsync({
-        //אפשר להשאיר בלי הצבה למשתנה ואם יש שגאיה הפונקציה תעבור לקאץ
-        us: req.body.us,
-        ps: req.body.ps,
-        name: req.body.name,
-      });
-      //TODO:pass req.body to function above
-
-      let hash = await bcrypt.generatePassword(data.ps);
+      // then here we create the new user
+      await joiAuth.validateInputAsync(req.body);
+      let hash = await bcrypt.generatePassword(password);
       data = await clients.newUser(
-        data.us,
+        email,
         hash,
-        req.body.name,
-        req.body.darkMode
+        full_name,
+        darkMode
       );
-
-      //אפשר בלי להציב למשתנים
-      let data1 = await JWT.generateToken(req.body.us);
-
-      // let data = await clients.newUser(req.body.us ,req.body.ps, req.body.name);
+      await JWT.generateToken(email);
       res.redirect("/auth");
     }
   } catch (e) {
@@ -153,23 +138,18 @@ const updatePage = async (req, res) => {
     console.log(e);
   }
 };
-//לא לתת אפשרות לעדכן אימייל
 const update = async (req, res) => {
+  const {email,password,full_name} = req.body
   try {
-    let data1 = await joiAuth.validateInputAsync({
-      us: req.body.us,
-      ps: req.body.nps,
-      name: req.body.nname,
-    });
-    let cryptPassword = await bcrypt.generatePassword(req.body.nps);
-    let data = await clients.updateUser(
-      //req.body
-      req.body.us,
+    await joiAuthUpdate.validateInputAsync(password,full_name);
+    let cryptPassword = await bcrypt.generatePassword(password);
+    await clients.updateUser(
       cryptPassword,
-      req.body.nname,
-      req.body.ous
+      full_name,
+      email,
     );
   } catch (e) {
+    console.log(e);
     req.session.updateErr = [...e.details.map((item) => item.message)];
     res.redirect("/update");
   }

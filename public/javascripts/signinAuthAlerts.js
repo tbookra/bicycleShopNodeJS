@@ -3,27 +3,27 @@ window.addEventListener('load', () =>{
 
 const good = new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,30})$/);
 const goodE = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
-const newusername = document.getElementById('newusername');
-const newpassword = document.getElementById('newpassword');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
 const clientErr = document.getElementById('clientErr');
 
 
-newusername.addEventListener('change', e => {
-    if(newusername.value.match(goodE)) {
-        newusername.style.backgroundColor = '#1ecc71';
+email.addEventListener('change', e => {
+    if(email.value.match(goodE)) {
+        email.style.backgroundColor = '#1ecc71';
         clientErr.innerHTML = ''
     } else {
-        newusername.style.backgroundColor = '#eb0325';
+        email.style.backgroundColor = '#eb0325';
         clientErr.innerHTML= 'Invalid Email!!! Please try again';
     }
 });
 
-newpassword.addEventListener('change', e => {
-    if(newpassword.value.match(good)){
-        newpassword.style.backgroundColor = '#1ecc71';
+password.addEventListener('change', e => {
+    if(password.value.match(good)){
+        password.style.backgroundColor = '#1ecc71';
         clientErr.innerHTML = ''
     } else {
-        newpassword.style.backgroundColor = '#eb0325';
+        password.style.backgroundColor = '#eb0325';
         clientErr.innerHTML = 'Invalid password!!! A password must contain at least 8 charecters, no more than 30 charerters, at least one digit and one capital letter!'
     }
 });
