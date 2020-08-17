@@ -1,6 +1,6 @@
-const clients = require("../models/clients");
-const bcrypt = require("../auth/bcrypt");
-const JWT = require("../auth/jwt");
+const clients = require("../../models/clients");
+const bcrypt = require("../../auth/bcrypt");
+const JWT = require("../../auth//jwt");
 
 let token_id = undefined;
 

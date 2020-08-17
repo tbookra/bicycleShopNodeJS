@@ -1,7 +1,7 @@
-const clients = require("../models/clients");
-const joiAuth = require("../auth/joi");
-const bcrypt = require("../auth/bcrypt");
-const JWT = require("../auth/jwt");
+const joiAuth = require("../../auth/joi");
+const clients = require("../../models/clients");
+const bcrypt = require("../../auth/bcrypt");
+const JWT = require("../../auth//jwt");
 
 const signinPage = async (req, res) => {
   try {

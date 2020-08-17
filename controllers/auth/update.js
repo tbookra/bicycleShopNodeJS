@@ -1,6 +1,6 @@
-const clients = require("../models/clients");
-const joiAuthUpdate = require("../auth/joiUpdate");
-const bcrypt = require("../auth/bcrypt");
+const clients = require("../../models/clients");
+const joiAuthUpdate = require("../../auth/joiUpdate");
+const bcrypt = require("../../auth/bcrypt");
 
 const updatePage = async (req, res) => {
   try {
