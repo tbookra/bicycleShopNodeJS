@@ -5,24 +5,19 @@ const session = require("express-session");
 const logger = require("morgan");
 require("dotenv").config();
 
-
-
 const navNiddleWare = require("./middleware/nav");
 
 const indexRouter = require("./routes/index");
 const electricRouter = require("./routes/electric");
-const mountainRouter = require('./routes/mountain');
-const childRouter = require('./routes/child');
-const shoppingCartRouter = require('./routes/shopping_cart');
+const mountainRouter = require("./routes/mountain");
+const childRouter = require("./routes/child");
+const shoppingCartRouter = require("./routes/shopping_cart");
 const authRouter = require("./routes/auth");
-const newUsersRouter = require('./routes/signin');
-const updateUsersRouter = require('./routes/update');
-const logoutRouter = require('./routes/logout');
-
-
+const newUsersRouter = require("./routes/signin");
+const updateUsersRouter = require("./routes/update");
+const logoutRouter = require("./routes/logout");
 
 const app = express();
-
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -44,12 +39,8 @@ app.use("/mountain", mountainRouter);
 app.use("/child", childRouter);
 app.use("/shopping", shoppingCartRouter);
 app.use("/auth", authRouter);
-app.use("/signin", newUsersRouter);
-app.use("/update", updateUsersRouter);
-app.use("/logout", logoutRouter);
 
 // catch 404 and forward to error handler
-
 
 app.use(function (req, res, next) {
   next(createError(404));
