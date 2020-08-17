@@ -1,5 +1,5 @@
 const joiAuth = require("../../auth/joi");
-const clients = require("../../models/clients");
+const Users = require("../../models/mySql/Users");
 const bcrypt = require("../../auth/bcrypt");
 const JWT = require("../../auth//jwt");
 
@@ -8,7 +8,7 @@ const signinPage = async (req, res) => {
     req.session.loginErr = [];
     req.session.updateErr = [];
     let errArrey = req.session.signinErr ? req.session.signinErr : [];
-    let dbusers = await clients.selectUsers();
+    let dbusers = await Users.getAllUsers();
     res.render("signin", {
       ...req.nav,
       dbusers: dbusers[0],
@@ -22,7 +22,7 @@ const signinPage = async (req, res) => {
 const signin = async (req, res) => {
   const { email, password, full_name, darkMode } = req.body;
   try {
-    let dbusers = await clients.selectUsers();
+    let dbusers = await Users.getAllUsers();
     let user_exist = false;
     for (let user of dbusers[0]) {
       if (email && email == user.email) {
@@ -38,7 +38,7 @@ const signin = async (req, res) => {
       // then here we create the new user
       await joiAuth.validateInputAsync(req.body);
       let hash = await bcrypt.hashPassword(password);
-      data = await clients.newUser(email, hash, full_name, darkMode);
+      data = await Users.createUser(email, hash, full_name, darkMode);
       await JWT.generateToken(email);
       res.redirect("/auth");
     }

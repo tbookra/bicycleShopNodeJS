@@ -1,4 +1,4 @@
-const clients = require("../../models/clients");
+const Users = require("../../models/mySql/Users");
 const bcrypt = require("../../auth/bcrypt");
 const JWT = require("../../auth//jwt");
 
@@ -10,7 +10,8 @@ const loginPage = async (req, res) => {
     req.session.updateErr = [];
     let errArrey = req.session.loginErr ? req.session.loginErr : [];
     //for access users from main page
-    let userList = await clients.selectUsers();
+    let userList = await Users.getAllUsers();
+    console.log(userList);
     module.exports.userList = userList[0];
     res.render("login", { errArrey: errArrey, ...req.nav });
     req.session.err = undefined;
@@ -28,7 +29,7 @@ const login = async (req, res) => {
       res.redirect("/auth");
       return;
     }
-    let user1 = await clients.getUser(email);
+    let user1 = await Users.getUser(email);
 
     let usersList = module.exports.userList;
     let user = usersList.filter((user) => user.email == email);
@@ -42,7 +43,7 @@ const login = async (req, res) => {
       if (passAuth) {
         // this part is where everything is right
         req.session.name = user[0].email;
-        await clients.last_access_date(user[0].email);
+        await Users.last_access_date(user[0].email);
         let expiresIn = req.body.rememberMe ? true : false;
         token_id = await JWT.generateToken(user[0].email, expiresIn);
         console.log("token", token_id);

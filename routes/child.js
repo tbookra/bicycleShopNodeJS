@@ -1,18 +1,16 @@
 const express = require("express");
 const authMiddleware = require("../middleware/auth");
-const clients = require('../models/clients');
+const clients = require("../models/mySql/Users");
 const app = require("../app");
 const router = express.Router();
-
-
 
 // router.use(authMiddleware);
 
 /* GET home page. */
 router.get("/", async function (req, res, next) {
-    try{
+  try {
     let productsInfo = await clients.getData('"child"');
-    console.log('productsInfo: '+ productsInfo[0][0].product_name);
+    console.log("productsInfo: " + productsInfo[0][0].product_name);
     let arr = productsInfo[0];
     module.exports.childInfo = productsInfo[0];
     if (req.query.q) {
@@ -28,13 +26,16 @@ router.get("/", async function (req, res, next) {
   } catch (e) {
     console.log(e);
   }
-  
 });
 
-router.get("/auth/:product_id", authMiddleware ,(req, res) => {
-  let ttt = module.exports.childInfo
+router.get("/auth/:product_id", authMiddleware, (req, res) => {
+  let ttt = module.exports.childInfo;
   let place = ttt.find((elm) => elm.product_id == req.params.product_id);
-  res.render("place_ditales", { ...req.nav, title: place.product_name, place: place });
+  res.render("place_ditales", {
+    ...req.nav,
+    title: place.product_name,
+    place: place,
+  });
 });
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const clients = require("../../models/clients");
+const Users = require("../../models/mySql/Users");
 const joiAuthUpdate = require("../../auth/joiUpdate");
 const bcrypt = require("../../auth/bcrypt");
 
@@ -8,7 +8,7 @@ const updatePage = async (req, res) => {
     req.session.loginErr = [];
     let errArrey = req.session.updateErr ? req.session.updateErr : [];
     //שאילתה למשתמש ספציפי
-    let dbusers = await clients.selectUsers();
+    let dbusers = await Users.getAllUsers();
     res.render("update", {
       ...req.nav,
       dbusers: dbusers[0],
@@ -24,7 +24,7 @@ const update = async (req, res) => {
   try {
     await joiAuthUpdate.validateInputAsync(password, full_name);
     let cryptPassword = await bcrypt.hashPassword(password);
-    await clients.updateUser(cryptPassword, full_name, email);
+    await Users.updateUser(cryptPassword, full_name, email);
   } catch (e) {
     console.log(e);
     req.session.updateErr = [...e.details.map((item) => item.message)];
