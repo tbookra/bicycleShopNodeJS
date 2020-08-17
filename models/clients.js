@@ -55,8 +55,7 @@ let selectUsers = () => {
 };
 
 let getUser = (user) => {
-  return mysql.execute(`SELECT * FROM ${DB}.users WHERE email = ?;`)
-  ,[user];
+  return mysql.execute(`SELECT * FROM ${DB}.users WHERE email = ?;`, [user]);
 };
 
 let newUser = (username, password, name, dark_mode) => {
