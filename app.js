@@ -11,7 +11,7 @@ const indexRouter = require("./routes/index");
 const electricRouter = require("./routes/electric");
 const mountainRouter = require("./routes/mountain");
 const childRouter = require("./routes/child");
-const shoppingCartRouter = require("./routes/shopping_cart");
+// const shoppingCartRouter = require("./routes/shopping_cart");
 const authRouter = require("./routes/auth");
 
 const app = express();
@@ -34,7 +34,7 @@ app.use("/", indexRouter);
 app.use("/electric", electricRouter);
 app.use("/mountain", mountainRouter);
 app.use("/child", childRouter);
-app.use("/shopping", shoppingCartRouter);
+// app.use("/shopping", shoppingCartRouter);
 app.use("/auth", authRouter);
 
 // catch 404 and forward to error handler
