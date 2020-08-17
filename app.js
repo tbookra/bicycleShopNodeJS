@@ -13,9 +13,6 @@ const mountainRouter = require("./routes/mountain");
 const childRouter = require("./routes/child");
 const shoppingCartRouter = require("./routes/shopping_cart");
 const authRouter = require("./routes/auth");
-const newUsersRouter = require("./routes/signin");
-const updateUsersRouter = require("./routes/update");
-const logoutRouter = require("./routes/logout");
 
 const app = express();
 
