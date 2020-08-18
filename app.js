@@ -24,6 +24,8 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(navNiddleWare);
+
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
 
