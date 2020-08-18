@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Login Page</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -28,26 +28,44 @@
       src="https://kit.fontawesome.com/cc62548657.js"
       crossorigin="anonymous"
     ></script>
+    <script src="/javascripts/loginAuthAlerts.js" defer async></script>
   </head>
 
   <body>
     <div class="container">
-      <%- include("components/nav", {cpage:cpage, loginname:loginname}) %>
+      <%- include("components/nav", {cpage:cpage}) %>
       <main class="main">
-        <div>
-          <img src="/images/homepage.jpg" />
-        </div>
-        <div class="rtl mainPage">
-          <div>
-            <span> <%= VerfiedUser %></span>
-          </div>
-
-          <span>חנות האופניים הזולה והגדולה במזרח התיכון!!!</span><br />
-          כאן תמצא את המגוון המלא ביותר בארץ. לכל סוגי האופניים: אופני הרים,
-          אופני כביש, אופני ילדים ואפילו אופניים חשמליות. והכל בהספקה מיידית.
-          ובמחיר הזול במדינה.
-        </div>
+        <form action="/auth/login" method="post">
+          <span><label class="formRows" for="email">Email:</label></span
+          ><span> <input type="text" name="email" id="email" /></span> <br />
+          <span><label class="formRows" for="password">PASSWORD:</label></span
+          ><span> <input type="password" name="password" id="password" /> </span
+          ><br />
+          <span
+            ><label class="formRows" for="rememberMe">REMEMBER ME:</label></span
+          ><span>
+            <input
+              type="checkbox"
+              name="rememberMe"
+              id="rememberMe"
+              value="true"
+            /> </span
+          ><br />
+          <button id="loginBtn">send</button>
+        </form>
       </main>
+      <div id="clientErr"></div>
+      <div>
+        <ul>
+          <% for (let item of errArrey) { %>
+          <li><%= item%></li>
+          <% } %>
+        </ul>
+      </div>
+      <br />
+      <br /><br />
+      <div><a href="/auth/signin">SIGN IN</a></div>
+      <div><a href="/auth/update">UPDATE</a></div>
       <footer></footer>
     </div>
   </body>
