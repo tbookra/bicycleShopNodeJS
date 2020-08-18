@@ -9,6 +9,7 @@ const index = async (req, res) => {
     verfiedUser
       ? (req.session.name = verfiedUser._id)
       : (req.session.name = undefined);
+    console.log("verifyUser", verfiedUser);
     let userList = await Users.getAllUsers();
     module.exports.userList = userList[0];
     let user = userList[0].filter((user) => user.email == verfiedUser._id);

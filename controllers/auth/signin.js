@@ -1,7 +1,7 @@
 const joiAuth = require("../../auth/joi");
 const Users = require("../../models/mySql/Users");
 const bcrypt = require("../../auth/bcrypt");
-const JWT = require("../../auth//jwt");
+const JWT = require("../../auth/jwt");
 
 const signinPage = async (req, res) => {
   try {
@@ -33,19 +33,21 @@ const signin = async (req, res) => {
     }
     if (user_exist) {
       req.session.signinErr = ["user already exist"];
-      res.redirect("/signin");
+      res.redirect("/auth/signin");
     } else {
       // then here we create the new user
       await joiAuth.validateInputAsync(req.body);
-      let hash = await bcrypt.hashPassword(password);
-      data = await Users.createUser(email, hash, full_name, darkMode);
+      let hashPassword = await bcrypt.hashPassword(password);
+      console.table({ ...req.body, hashPassword });
+      data = await Users.createUser({ ...req.body, hashPassword });
+      // data = await Users.createUser(email, hashPassword, full_name, darkMode);
       await JWT.generateToken(email);
-      res.redirect("/auth");
+      res.redirect("/");
     }
   } catch (e) {
     console.log(e);
     req.session.signinErr = [...e.details.map((item) => item.message)];
-    res.redirect("/signin");
+    res.redirect("/auth/signin");
   }
 };
 

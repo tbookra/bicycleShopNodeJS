@@ -1,6 +1,6 @@
 const Users = require("../../models/mySql/Users");
 const bcrypt = require("../../auth/bcrypt");
-const JWT = require("../../auth//jwt");
+const JWT = require("../../auth/jwt");
 
 let token_id = undefined;
 
@@ -26,10 +26,10 @@ const login = async (req, res) => {
     if (!email || !password) {
       // handles with if no name was asigned
       req.session.loginErr = ["email or password missing"];
-      res.redirect("/auth");
+      res.redirect("/auth/login");
       return;
     }
-    let user1 = await Users.getUser(email);
+    let user1 = await Users.getUserByEmail(email);
 
     let usersList = module.exports.userList;
     let user = usersList.filter((user) => user.email == email);
@@ -37,7 +37,7 @@ const login = async (req, res) => {
     if (user1.length == 0) {
       // if there is no such user in the database
       req.session.loginErr = ["the email not exist"];
-      res.redirect("/auth");
+      res.redirect("/auth/login");
     } else {
       let passAuth = await bcrypt.checkPassword(password, user[0].password);
       if (passAuth) {
@@ -53,7 +53,7 @@ const login = async (req, res) => {
         // if user exists but a wrong password
         req.session.loginErr = ["email or password incorrect"];
 
-        res.redirect("/auth");
+        res.redirect("/auth/login");
       }
     }
   } catch (e) {

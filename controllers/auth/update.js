@@ -23,8 +23,8 @@ const update = async (req, res) => {
   const { email, password, full_name } = req.body;
   try {
     await joiAuthUpdate.validateInputAsync(password, full_name);
-    let cryptPassword = await bcrypt.hashPassword(password);
-    await Users.updateUser(cryptPassword, full_name, email);
+    let hashPassword = await bcrypt.hashPassword(password);
+    await Users.updateUser(hashPassword, full_name, email);
   } catch (e) {
     console.log(e);
     req.session.updateErr = [...e.details.map((item) => item.message)];

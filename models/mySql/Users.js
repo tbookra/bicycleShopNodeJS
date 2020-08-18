@@ -6,14 +6,20 @@ let getAllUsers = () => {
   return mysql.execute(`SELECT * FROM ${DB}.users;`);
 };
 
-let getUser = (user) => {
-  return mysql.execute(`SELECT * FROM ${DB}.users WHERE email = ?;`, [user]);
+let getUserByID = (userID) => {
+  return mysql.execute(`SELECT * FROM ${DB}.users WHERE user_id = ?;`, [
+    userID,
+  ]);
 };
 
-let createUser = (username, password, name, dark_mode) => {
+let getUserByEmail = (email) => {
+  return mysql.execute(`SELECT * FROM ${DB}.users WHERE email = ?;`, [email]);
+};
+
+let createUser = ({ email, hashPassword, full_name, darkMode }) => {
   return mysql.execute(
     `INSERT INTO ${DB}.users(email, password, full_name, dark_mode,is_admin,register_date,last_access_date) VALUES (?,?,?,?,0,now(),now());`,
-    [username, password, name, dark_mode]
+    [email, hashPassword, full_name, darkMode]
   );
 };
 let last_access_date = (email) => {
@@ -33,7 +39,8 @@ let updateUser = (password, full_name, email) => {
 };
 
 module.exports.getAllUsers = getAllUsers;
-module.exports.getUser = getUser;
+module.exports.getUserByID = getUserByID;
+module.exports.getUserByEmail = getUserByEmail;
 module.exports.createUser = createUser;
 module.exports.last_access_date = last_access_date;
 module.exports.updateUser = updateUser;
