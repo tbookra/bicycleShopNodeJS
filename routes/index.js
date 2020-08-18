@@ -1,7 +1,7 @@
-var express = require("express");
+const express = require("express");
+const router = express.Router();
 const Users = require("../models/mySql/Users");
 const JWT = require("../auth/jwt");
-var router = express.Router();
 
 /* GET home page. */
 router.get("/", async function (req, res) {
