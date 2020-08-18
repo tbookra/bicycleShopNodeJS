@@ -7,6 +7,7 @@ const signinController = require("../controllers/auth/signin");
 const updateController = require("../controllers/auth/update");
 
 const authMiddleware = require("../middleware/auth");
+
 router.get("/login", loginController.loginPage);
 router.post("/login", loginController.login);
 
