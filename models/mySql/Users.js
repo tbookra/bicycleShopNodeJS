@@ -38,9 +38,14 @@ let updateUser = (password, full_name, email) => {
   );
 };
 
+let deleteUser = (id) => {
+  return mysql.execute(`DELETE FROM ${DB}.users WHERE user_id =?`, [id]);
+};
+
 module.exports.getAllUsers = getAllUsers;
 module.exports.getUserByID = getUserByID;
 module.exports.getUserByEmail = getUserByEmail;
 module.exports.createUser = createUser;
 module.exports.last_access_date = last_access_date;
 module.exports.updateUser = updateUser;
+module.exports.deleteUser = deleteUser;
