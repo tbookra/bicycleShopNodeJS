@@ -6,13 +6,25 @@ let getAllItems = async () => {
   return await mysql.execute(`SELECT * FROM ${DB}.items`);
 };
 
-let getItem = async (id) => {
+let getItemByID = async (id) => {
   return await mysql.execute(`SELECT * FROM ${DB}.items WHERE item_id = ?`, [
     id,
   ]);
 };
 
-let getItemByName = async (searchString) => {
+let getItemByName = async (item_name) => {
+  return await mysql.execute(`SELECT * FROM ${DB}.items WHERE item_name = ?`, [
+    item_name,
+  ]);
+};
+
+let getItemsByCategory = async (category) => {
+  return await mysql.execute(`SELECT * FROM ${DB}.items WHERE category = ?`, [
+    category,
+  ]);
+};
+
+let getItemsBySearch = async (searchString) => {
   return await mysql.execute(
     `SELECT * FROM ${DB}.items WHERE item_name LIKE '?%'`,
     [searchString]
@@ -28,7 +40,14 @@ let createItem = async (itemDetail) => {
   ]);
 };
 
+let deleteItem = async (id) => {
+  return await mysql.execute(`DELETE FROM ${DB}.items WHERE item_id = ?`, [id]);
+};
+
 module.exports.getAllItems = getAllItems;
-module.exports.getItem = getItem;
-module.exports.createItem = createItem;
+module.exports.getItemsByCategory = getItemsByCategory;
+module.exports.getItemsBySearch = getItemsBySearch;
+module.exports.getItemByID = getItemByID;
 module.exports.getItemByName = getItemByName;
+module.exports.createItem = createItem;
+module.exports.deleteItem = deleteItem;
