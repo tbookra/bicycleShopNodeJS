@@ -11,8 +11,6 @@ const loginPage = async (req, res) => {
     let errArrey = req.session.loginErr ? req.session.loginErr : [];
     //for access users from main page
     let userList = await Users.getAllUsers();
-    console.log(userList);
-    module.exports.userList = userList[0];
     res.render("login", { errArrey: errArrey, ...req.nav });
     req.session.err = undefined;
   } catch (e) {
@@ -29,9 +27,8 @@ const login = async (req, res) => {
       res.redirect("/auth/login");
       return;
     }
-    let user1 = await Users.getUserByEmail(email);
-
-    let usersList = module.exports.userList;
+    let [user1] = await Users.getUserByEmail(email);
+    let [usersList] = await Users.getAllUsers();
     let user = usersList.filter((user) => user.email == email);
 
     if (user1.length == 0) {
@@ -46,7 +43,6 @@ const login = async (req, res) => {
         await Users.last_access_date(user[0].email);
         let expiresIn = req.body.rememberMe ? true : false;
         token_id = await JWT.generateToken(user[0].email, expiresIn);
-        console.log("token", token_id);
         req.session.auth_token = token_id;
         res.redirect("/");
       } else {
