@@ -1,6 +1,7 @@
 const express = require("express");
 const authMiddleware = require("../middleware/auth");
 const clients = require('../models/mySql/clients');
+const Items = require('../models/mySql/Items');
 const app = require("../app");
 const router = express.Router();
 
@@ -11,7 +12,8 @@ const router = express.Router();
 /* GET home page. */
 router.get("/", async function (req, res, next) {
     try{
-    let productsInfo = await clients.getData('"child"');
+    let productsInfo = await Items.getItemsByCategory('"child"');
+    // let productsInfo = await clients.getData('"child"');
     console.log('productsInfo: '+ productsInfo[0][0].product_name);
     let arr = productsInfo[0];
     module.exports.childInfo = productsInfo[0];

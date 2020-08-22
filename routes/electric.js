@@ -1,6 +1,7 @@
 const express = require("express");
 const authMiddleware = require("../middleware/auth");
 const clients = require('../models/mySql/clients');
+const Items = require('../models/mySql/Items');
 const app = require("../app");
 const router = express.Router();
 
@@ -11,8 +12,8 @@ router.get("/", async function (req, res, next) {
   try{
     let userList = await clients.selectUsers();
     module.exports.userList = userList[0];
-   console.log('this is module.exports.userList',module.exports.userList)
-  let productsInfo = await clients.getData('"electric"');
+    let productsInfo = await Items.getItemsByCategory('"electric"');
+//  let productsInfo = await clients.getData('"electric"');
   let arr = productsInfo[0];
   module.exports.electricInfo = productsInfo[0];
   if (req.query.q) {

@@ -1,6 +1,7 @@
 const express = require("express");
 const authMiddleware = require("../middleware/auth");
 const clients = require('../models/mySql/clients');
+const Items = require('../models/mySql/Items');
 const app = require("../app");
 const router = express.Router();
 
@@ -9,7 +10,8 @@ const router = express.Router();
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   try{
-  let productsInfo = await clients.getData('"mountain"');
+    let productsInfo = await Items.getItemsByCategory('"mountain"');
+  // let productsInfo = await clients.getData('"mountain"');
   let arr = productsInfo[0];
   module.exports.mountainInfo = productsInfo[0];
   if (req.query.q) {
