@@ -12,7 +12,7 @@ router.get("/", async function (req, res, next) {
   try{
     let userList = await clients.selectUsers();
     module.exports.userList = userList[0];
-    let productsInfo = await Items.getItemsByCategory('"electric"');
+    let productsInfo = await Items.getItemsByCategory('electric');
 //  let productsInfo = await clients.getData('"electric"');
   let arr = productsInfo[0];
   module.exports.electricInfo = productsInfo[0];
@@ -32,11 +32,11 @@ router.get("/", async function (req, res, next) {
 
 });
 
-router.get("/auth/:product_id", authMiddleware ,(req, res) => {
+router.get("/auth/:item_id", authMiddleware ,(req, res) => {
   let ttt = module.exports.electricInfo
-  let place = ttt.find((elm) => elm.product_id == req.params.product_id);
+  let place = ttt.find((elm) => elm.item_id == req.params.item_id);
   
-  res.render("place_ditales", { ...req.nav, title: place.product_name, place: place });
+  res.render("place_ditales", { ...req.nav, title: place.item_name, place: place });
 });
 
 module.exports = router;

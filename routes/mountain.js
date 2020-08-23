@@ -10,7 +10,8 @@ const router = express.Router();
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   try{
-    let productsInfo = await Items.getItemsByCategory('"mountain"');
+    let productsInfo = await Items.getItemsByCategory('mountain');
+    console.log('productsInfo',productsInfo[0]);
   // let productsInfo = await clients.getData('"mountain"');
   let arr = productsInfo[0];
   module.exports.mountainInfo = productsInfo[0];
@@ -30,10 +31,10 @@ router.get("/", async function (req, res, next) {
 
 });
 
-router.get("/auth/:product_id", authMiddleware ,(req, res) => {
+router.get("/auth/:item_id", authMiddleware ,(req, res) => {
   let ttt = module.exports.mountainInfo
-  let place = ttt.find((elm) => elm.product_id == req.params.product_id);
-  res.render("place_ditales", { ...req.nav, title: place.product_name, place: place });
+  let place = ttt.find((elm) => elm.item_id == req.params.item_id);
+  res.render("place_ditales", { ...req.nav, title: place.item_name, place: place });
 });
 
 module.exports = router;

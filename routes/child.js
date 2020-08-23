@@ -12,7 +12,7 @@ const router = express.Router();
 /* GET home page. */
 router.get("/", async function (req, res, next) {
     try{
-    let productsInfo = await Items.getItemsByCategory('"child"');
+    let productsInfo = await Items.getItemsByCategory('child');
     // let productsInfo = await clients.getData('"child"');
     console.log('productsInfo: '+ productsInfo[0][0].product_name);
     let arr = productsInfo[0];
@@ -35,8 +35,8 @@ router.get("/", async function (req, res, next) {
 
 router.get("/auth/:product_id", authMiddleware ,(req, res) => {
   let ttt = module.exports.childInfo
-  let place = ttt.find((elm) => elm.product_id == req.params.product_id);
-  res.render("place_ditales", { ...req.nav, title: place.product_name, place: place });
+  let place = ttt.find((elm) => elm.item_id == req.params.item_id);
+  res.render("place_ditales", { ...req.nav, title: place.item_name, place: place });
 });
 
 module.exports = router;

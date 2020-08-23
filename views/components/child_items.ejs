@@ -1,11 +1,11 @@
 <% if(childarr.length>0) { %>
     <% for(let item of childarr) { %>
     <div class="card bg-dark text-white">
-        <img src="/images/store/<%=item.product_img%>" class="card-img" alt="item">
+        <img src="<%=item.img_url%>" class="card-img" alt="item">
         <div class="card-img-overlay">
-            <h5 class="card-title"><%=item.product_name%></h5>
-            <p class="card-text"><%=item.price%></p>
-            <p class="card-text"><a href="/child/auth/<%=item.product_id%>">Buy now </a></p>
+            <h5 class="card-title"><%=item.item_name%></h5>
+            <p class="card-text"><%=item.unit_price%></p>
+            <p class="card-text"><a href="/child/auth/<%=item.item_id%>">Buy now </a></p>
         </div>
     </div>
     <% } %>
