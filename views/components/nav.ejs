@@ -21,10 +21,8 @@ url:"/child"}] %>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" <% if(loginname) { %>
-          href="/shoppingCart/getCart" <% } else { %> href="#" <% } %>><i
-            class="fas fa-shopping-cart"
-            style="font-size: 35px"
-          ></i
+          href="/shoppingCart/getCart" <% } else { %> href="/auth/login" <% }
+          %>><i class="fas fa-shopping-cart" style="font-size: 35px"></i
         ></a>
       </li>
       <li class="nav-item dropdown">
