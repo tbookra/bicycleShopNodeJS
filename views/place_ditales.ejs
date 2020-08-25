@@ -1,64 +1,64 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title><%= title %></title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-    </script>
-   
-</head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <%- include("components/nav", {cpage:cpage}) %>
-        <main class="main main1">
-            <div class="card mb-3">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="<%=place.img_url%>" class="card-img" alt="place image">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title"><%=place.item_name%></h5>
-                            <p class="card-text"><%=place.unit_price%></p>
-                            <p class="card-text"><small class="text-muted">כל הזכויות שמורות. עד גמר המלאי!</small></p>
-                        </div>
-                    </div>
-                </div>
-            </div><br>
-           
-        </main>
-        <div class="purchase">
-            <h2>Order Here</h2>
-            <form action="/shopping" method="post">
-              <label for="itemID" class="formRows">Item Catalogue:</label><input type="text" name="itemID" id="itemID" value=<%=place.item_id%>><br>
-              <label for="name" class="formRows">Product:</label><input type="text" name="name" id="name" value=<%=place.item_name%>><br>
-              <input type="hidden" name="price" id="price"  value=<%=place.unit_price%>><br>
-              <div id="price1" class="formRows">Price: <%=place.unit_price%></div>
-              <label for="amount" class="formRows">Amount:</label><input type="number" name="amount" id="amount" ><br>
-              <!-- <input type="checkbox" name="cb1" id="" value="val1">
-              <input type="checkbox" name="cb2" id="" value="val2"><br> -->
-             <!-- <label for="r1">white</label> <input type="radio" name="r1" id="" value="white">
-             <label for="r1">red</label> <input type="radio" name="r1" id="" value="red">
-             <label for="r1">black</label> <input type="radio" name="r1" id="" value="black">
-             <label for="r1">yellow</label> <input type="radio" name="r1" id="" value="yellow">
-             <label for="r1">blue</label> <input type="radio" name="r1" id="" value="blue"><br> -->
-              <button class="btn btn-primary">send</button>
-          </form>
-                         </div>
-        
-        <footer></footer>
-    </div>
-</body>
+      <%- include("components/nav", {cpage:cpage}) %>
+      <main class="main main1">
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img
+                src="<%=place.img_url%>"
+                class="card-img"
+                alt="place image"
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><%=place.item_name%></h5>
+                <p class="card-text"><%=place.unit_price%></p>
+                <p class="card-text">
+                  <small class="text-muted"
+                    >כל הזכויות שמורות. עד גמר המלאי!</small
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+      </main>
+      <div class="purchase">
+        <h2><a href="/shoppingCart/add/<%=place.item_id%>">Add To Cart</a></h2>
+      </div>
 
+      <footer></footer>
+    </div>
+  </body>
 </html>

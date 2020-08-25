@@ -10,9 +10,9 @@ const navNiddleWare = require("./middleware/nav");
 const indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
 const electricRouter = require("./routes/electric");
-const mountainRouter = require('./routes/mountain');
-const childRouter = require('./routes/child');
-
+const mountainRouter = require("./routes/mountain");
+const childRouter = require("./routes/child");
+const shoppingCartRouter = require("./routes/shoppingCart");
 
 const app = express();
 
@@ -35,6 +35,7 @@ app.use("/auth", authRouter);
 app.use("/electric", electricRouter);
 app.use("/mountain", mountainRouter);
 app.use("/child", childRouter);
+app.use("/shoppingCart", shoppingCartRouter);
 
 // catch 404 and forward to error handler
 
