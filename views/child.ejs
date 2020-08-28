@@ -16,14 +16,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
     </script>
+      <script src="/javascripts/search/childItemSearch.js" defer async></script>
 </head>
 
 <body>
     <div class="container">
         <%- include("components/nav", {cpage:cpage}) %>
-        <main class="main">
+        <main class="main" id="main">
             <%- include("components/child_items", {childarr:childarr}) %>
         </main>
+        
         <footer></footer>
     </div>
 </body>
