@@ -73,3 +73,8 @@ body {
 
   width: 13vw;
 }
+#autoCompList{
+  position: absolute;
+  top: 10%;
+  right: 10%;
+}

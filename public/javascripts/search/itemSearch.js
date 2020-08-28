@@ -1,6 +1,7 @@
 window.addEventListener('load', async () => {
     let itemSearchInp = document.getElementById('itemSearchInp');
     let main = document.getElementById('main');
+    let autoCompList = document.getElementById('autoCompList');
     let items = await fetch_get("/getItems");
     let itemsArr = items[0];
 
@@ -23,15 +24,39 @@ itemSearchInp.addEventListener('input', async (e) =>{
     </div>
                 `
             main.innerHTML = str;
-            }
+            };
+        
         }
+        if(itemSearchInp.value.length>0){
+                // the auto complete code
+                let matches = itemsArr.filter(state => {
+                    const regex = new RegExp(`^${itemSearchInp.value}`, 'gi');
+                    return state.item_name.match(regex);
+                });
+                outputHTML(matches);
+        }
+        else {
+            matches = [];
+            autoCompList.innerHTML = '';
+        }
+      
     } catch(e){
         console.log(e)
     }
 })
 });
 
-
+const outputHTML = matches => {
+    if(matches.length > 0){
+        const html = matches.map(match => `
+        <div class="card card-body mb-1">
+        <h4>${match.item_name} <span
+        class="text-primary">${match.category}</span></h4>
+        <small>price: ${match.unit_price}</small></div>
+        `).join('');
+        autoCompList.innerHTML = html;
+    }
+}
 
 function fetch_get(url) {
     return fetch(url).then(

@@ -27,6 +27,8 @@ router.get("/", async function (req, res, next) {
 
 });
 
+
+
 router.get("/:item_id", authMiddleware ,(req, res) => {
   let mountainInfoArr = module.exports.mountainInfo
   let place = mountainInfoArr.find((elm) => elm.item_id == req.params.item_id);
@@ -34,3 +36,4 @@ router.get("/:item_id", authMiddleware ,(req, res) => {
 });
 
 module.exports = router;
+
