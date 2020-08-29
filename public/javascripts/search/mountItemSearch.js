@@ -13,15 +13,16 @@ itemSearchInp.addEventListener('input', async (e) =>{
         if(l1>0){
             for (let i =0; i < l1; i++){
                 str += `
-                <div>${filtered_item_arr[i].item_name}</div>
-                <div class="card bg-dark text-white">
-        <img src="${filtered_item_arr[i].img_url}" class="card-img" alt="item">
-        <div class="card-img-overlay">
-            <h5 class="card-title">${filtered_item_arr[i].item_name}</h5>
-            <p class="card-text"><${filtered_item_arr[i].unit_price}</p>
-            <p class="card-text"><a href="/${filtered_item_arr[i].category}/${filtered_item_arr[i].item_id}">Buy now </a></p>
-        </div>
-    </div>
+                <div class="col mb-4">
+            <div class="card h-100">
+              <img src="${filtered_item_arr[i].img_url}" class="card-img-top" alt="item">
+              <div class="card-body">
+                <h5 class="card-title">${filtered_item_arr[i].item_name}</h5>
+                <p class="card-text">price: ${filtered_item_arr[i].unit_price}$</p>
+                <p class="card-text"><a href="/${filtered_item_arr[i].category}/${filtered_item_arr[i].item_id}">Buy now </a></p>
+              </div>
+            </div>
+          </div>
                 `
             main.innerHTML = str;
             }

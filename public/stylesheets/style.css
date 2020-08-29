@@ -2,9 +2,10 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-.main {
+.mainPage {
   display: flex;
   align-items: center;
+  justify-content: space-around;
 }
 
 .nav-item {

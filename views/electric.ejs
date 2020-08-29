@@ -22,9 +22,11 @@
 <body>
     <div class="container">
         <%- include("components/nav", {cpage:cpage}) %>
-        <main class="main" id="main">
+        <div id="main" class="row row-cols-1 row-cols-md-3">
+        
             <%- include("components/electric_item", {electricarr:electricarr}) %>
-        </main>
+      
+    </div>
         <div id="autoCompList"></div>
         <footer></footer>
     </div>

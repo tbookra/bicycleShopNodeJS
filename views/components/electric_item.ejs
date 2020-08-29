@@ -1,13 +1,15 @@
 <% if(electricarr.length>0) { %>
     <% for(let item of electricarr) { %>
-    <div class="card bg-dark text-white">
-        <img src="<%=item.img_url%>" class="card-img" alt="item">
-        <div class="card-img-overlay">
-            <h5 class="card-title"><%=item.item_name%></h5>
-            <p class="card-text"><%=item.unit_price%></p>
-            <p class="card-text"><a href="/electric/<%=item.item_id%>">Buy now </a></p>
-        </div>
-    </div>
+        <div class="col mb-4">
+            <div class="card h-100">
+              <img src="<%=item.img_url%>" class="card-img-top" alt="item">
+              <div class="card-body">
+                <h5 class="card-title"><%=item.item_name%></h5>
+                <p class="card-text">price: <%=item.unit_price%>$</p>
+                <p class="card-text"><a href="/electric/<%=item.item_id%>">Buy now </a></p>
+              </div>
+            </div>
+          </div>
     <% } %>
     <% } else { %>
     <div>cant find any location with this name</div>

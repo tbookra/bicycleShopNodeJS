@@ -1,9 +1,12 @@
 window.addEventListener('load', async () => {
-    let itemSearchInp = document.getElementById('itemSearchInp');
-    let main = document.getElementById('main');
-    let autoCompList = document.getElementById('autoCompList');
+    const itemSearchInp = document.getElementById('itemSearchInp');
+    const main = document.getElementById('main');
+    const autoCompList = document.getElementById('autoCompList');
+    const searchContent = document.getElementById('searchContent');
     let items = await fetch_get("/getItems");
     let itemsArr = items[0];
+    searchContent.hidden = true;
+    main.hidden = false;
 
 itemSearchInp.addEventListener('input', async (e) =>{
     try{
@@ -13,30 +16,41 @@ itemSearchInp.addEventListener('input', async (e) =>{
         if(l1>0){
             for (let i =0; i < l1; i++){
                 str += `
-                <div>${filtered_item_arr[i].item_name}</div>
-                <div class="card bg-dark text-white">
-        <img src="${filtered_item_arr[i].img_url}" class="card-img" alt="item">
-        <div class="card-img-overlay">
-            <h5 class="card-title">${filtered_item_arr[i].item_name}</h5>
-            <p class="card-text"><${filtered_item_arr[i].unit_price}</p>
-            <p class="card-text"><a href="/${filtered_item_arr[i].category}/${filtered_item_arr[i].item_id}">Buy now </a></p>
-        </div>
-    </div>
+                <div class="col mb-4">
+            <div class="card h-100">
+              <img src="${filtered_item_arr[i].img_url}" class="card-img-top" alt="item">
+              <div class="card-body">
+                <h5 class="card-title">${filtered_item_arr[i].item_name}</h5>
+                <p class="card-text">price: ${filtered_item_arr[i].unit_price}$</p>
+                <p class="card-text"><a href="/${filtered_item_arr[i].category}/${filtered_item_arr[i].item_id}">Buy now </a></p>
+              </div>
+            </div>
+          </div>
                 `
-            main.innerHTML = str;
+                searchContent.innerHTML =` 
+            <div class="row row-cols-1 row-cols-md-3">
+            ${str}
+            </div>`
             };
         
         }
         if(itemSearchInp.value.length>0){
+            searchContent.hidden = false;
+            main.hidden = true;
                 // the auto complete code
                 let matches = itemsArr.filter(state => {
                     const regex = new RegExp(`^${itemSearchInp.value}`, 'gi');
                     return state.item_name.match(regex);
                 });
-                outputHTML(matches);
+                if(matches){
+                    outputHTML(matches);
+                };
+               
         }
         else {
-            matches = [];
+            searchContent.hidden = true;
+            main.hidden = false;
+            matches = undefined;
             autoCompList.innerHTML = '';
         }
       

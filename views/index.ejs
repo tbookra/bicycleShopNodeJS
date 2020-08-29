@@ -32,7 +32,7 @@
   <body>
     <div class="container">
       <%- include("components/nav", {cpage:cpage, loginname:loginname}) %>
-      <main class="main" id="main">
+      <main class="mainPage" id="main">
         <div>
           <img src="/images/homepage.jpg" />
         </div>
@@ -40,13 +40,14 @@
           <div>
             <span> <%= VerfiedUser %></span>
           </div>
-
-          <span>חנות האופניים הזולה והגדולה במזרח התיכון!!!</span><br />
-          כאן תמצא את המגוון המלא ביותר בארץ. לכל סוגי האופניים: אופני הרים,
-          אופני כביש, אופני ילדים ואפילו אופניים חשמליות. והכל בהספקה מיידית.
-          ובמחיר הזול במדינה.
+<ul>
+          <li>מחירים ללא תחרות!</li><br />
+          <li>אחראיות לשנתיים על כל המוצרים  </li><br />
+          <li>יבואן הרשמי בלבד!</li>
+        </ul><br />
         </div>
       </main>
+      <div class="main" id="searchContent"></div>
       <div id="autoCompList"></div>
       <footer></footer>
     </div>
