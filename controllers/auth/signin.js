@@ -35,7 +35,7 @@ const signin = async (req, res) => {
       req.session.signinErr = ["user already exist"];
       res.redirect("/auth/signin");
     } else {
-      // then here we create the new user
+      // then here we create the new user 
       await joiAuth.validateInputAsync(req.body);
       let hashPassword = await bcrypt.hashPassword(password);
       data = await Users.createUser({ ...req.body, hashPassword });

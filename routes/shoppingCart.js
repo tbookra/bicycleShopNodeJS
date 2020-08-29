@@ -3,7 +3,10 @@ const router = express.Router();
 const Cart = require("../models/cart");
 const Items = require("../models/mySql/Items");
 
-router.get("/getCart", async (req, res, next) => {
+const passwordWasModified = require('../middleware/passwordWasModified');
+
+
+router.get("/getCart",passwordWasModified, async (req, res, next) => {
   try {
     if (!req.session.cart) {
       return res.render("shoppingCart", {

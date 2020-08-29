@@ -1,4 +1,4 @@
-const Users = require("../../models/mySql/Users");
+const Users = require("../../models/mySql/Users"); 
 const joiAuthUpdate = require("../../auth/joiUpdate");
 const bcrypt = require("../../auth/bcrypt");
 

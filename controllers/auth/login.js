@@ -1,6 +1,7 @@
 const Users = require("../../models/mySql/Users");
 const bcrypt = require("../../auth/bcrypt");
 const JWT = require("../../auth/jwt");
+const passwordModiffication = require('../../middleware/passwordToModify');
 
 let token_id = undefined;
 
@@ -18,7 +19,7 @@ const loginPage = async (req, res) => {
   }
 };
 
-const login = async (req, res) => {
+const login = async (req, res,next) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -27,7 +28,9 @@ const login = async (req, res) => {
       res.redirect("/auth/login");
       return;
     }
+    
     let [user1] = await Users.getUserByEmail(email);
+    
     let [usersList] = await Users.getAllUsers();
     let user = usersList.filter((user) => user.email == email);
 
@@ -43,8 +46,8 @@ const login = async (req, res) => {
         await Users.last_access_date(user[0].email);
         let expiresIn = req.body.rememberMe ? true : false;
         token_id = await JWT.generateToken(user[0].email, expiresIn);
-        req.session.auth_token = token_id;
-        res.redirect("/");
+        req.session.auth_token = token_id,
+        next();
       } else {
         // if user exists but a wrong password
         req.session.loginErr = ["email or password incorrect"];

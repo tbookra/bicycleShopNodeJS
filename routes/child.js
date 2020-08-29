@@ -3,6 +3,8 @@ const authMiddleware = require("../middleware/auth");
 const Items = require('../models/mySql/Items');
 const router = express.Router();
 
+const passwordWasModified = require('../middleware/passwordWasModified');
+
 // router.use(authMiddleware);
 //jbjdnbjdnbjd
 /* GET home page. */
@@ -27,7 +29,7 @@ router.get("/", async function (req, res, next) {
 
 });
 
-router.get("/:item_id", authMiddleware ,(req, res) => {
+router.get("/:item_id", authMiddleware,passwordWasModified ,(req, res) => {
   let childInfoArr = module.exports.childInfo
   let place = childInfoArr.find((elm) => elm.item_id == req.params.item_id);
   

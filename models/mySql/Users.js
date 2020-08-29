@@ -18,7 +18,7 @@ let getUserByEmail = (email) => {
 
 let createUser = ({ email, hashPassword, full_name, darkMode }) => {
   return mysql.execute(
-    `INSERT INTO ${DB}.users(email, password, full_name, dark_mode,is_admin,register_date,last_access_date) VALUES (?,?,?,?,0,now(),now());`,
+    `INSERT INTO ${DB}.users(email, password, full_name, dark_mode,is_admin,register_date,last_access_date,last_password_modification) VALUES (?,?,?,?,0,now(),now(),now());`,
     [email, hashPassword, full_name, darkMode]
   );
 };
@@ -33,7 +33,7 @@ let last_access_date = (email) => {
 let updateUser = (password, full_name, email) => {
   return mysql.execute(
     `UPDATE ${DB}.users
-        SET password = ?, full_name = ? WHERE email = ?;`,
+        SET password = ?, full_name = ?, last_password_modification = now() WHERE email = ?;`,
     [password, full_name, email]
   );
 };

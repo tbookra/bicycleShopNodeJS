@@ -4,6 +4,8 @@ const Items = require('../models/mySql/Items');
 const router = express.Router();
 
 // router.use(authMiddleware);
+const passwordWasModified = require('../middleware/passwordWasModified');
+
 
 /* GET home page. */
 router.get("/", async function (req, res, next) {
@@ -28,7 +30,7 @@ router.get("/", async function (req, res, next) {
 
 });
 
-router.get("/:item_id", authMiddleware ,(req, res) => {
+router.get("/:item_id", authMiddleware, passwordWasModified ,(req, res) => {
   let electricInfoArr = module.exports.electricInfo
   let place = electricInfoArr.find((elm) => elm.item_id == req.params.item_id);
   
