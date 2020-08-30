@@ -24,10 +24,17 @@ let getItemsByCategory = async (category) => {
   ]);
 };
 
-let getItemsBySearch = async (searchString) => {
-  return await mysql.execute(
-    `SELECT * FROM ${DB}.items WHERE item_name LIKE '?%'`,
-    [searchString]
+let getItemsBySearch =  (searchString) => {
+  return  mysql.execute(
+    `SELECT * FROM ${DB}.items
+     WHERE item_name LIKE '%${searchString}%'`
+  );
+};
+
+let getItemsByitemAndCategoty =  (searchString,category) => {
+  return  mysql.execute(
+    `SELECT * FROM ${DB}.items
+     WHERE item_name LIKE '%${searchString}%' and category = '${category}'`
   );
 };
 
@@ -47,6 +54,7 @@ let deleteItem = async (id) => {
 module.exports.getAllItems = getAllItems;
 module.exports.getItemsByCategory = getItemsByCategory;
 module.exports.getItemsBySearch = getItemsBySearch;
+module.exports.getItemsByitemAndCategoty = getItemsByitemAndCategoty;
 module.exports.getItemByID = getItemByID;
 module.exports.getItemByName = getItemByName;
 module.exports.createItem = createItem;

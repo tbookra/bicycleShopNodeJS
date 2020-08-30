@@ -2,24 +2,32 @@ window.addEventListener('load', async () => {
     let itemSearchInp = document.getElementById('itemSearchInp');
     let main = document.getElementById('main');
     let autoCompList = document.getElementById('autoCompList');
-    let items = await fetch_get("/getChildItems");
-    let itemsArr = items[0];
+    try{
 
+        let items = await fetch_get("/getCategoryItems/getchild");
+        let itemsArr = items[0];
+    
+    
 itemSearchInp.addEventListener('input', async (e) =>{
     try{
-        let filtered_item_arr = await itemsArr.filter(item=>item.item_name.startsWith(e.target.value));
-        let l1 = filtered_item_arr.length;
+        let items2 = await fetch_post("/getCategoryItems",{
+            str:e.target.value,
+            category:'child'
+        });
+        let l2 = items2.length;
+        // let filtered_item_arr = await itemsArr.filter(item=>item.item_name.startsWith(e.target.value));
+        // let l1 = filtered_item_arr.length;
         let str = "";
-        if(l1>0){
-            for (let i =0; i < l1; i++){ 
+        if(l2>0){
+            for (let i =0; i < l2; i++){ 
                 str += `
                 <div class="col mb-4">
             <div class="card h-100">
-              <img src="${filtered_item_arr[i].img_url}" class="card-img-top" alt="item">
+              <img src="${items2[i].img_url}" class="card-img-top" alt="item">
               <div class="card-body">
-                <h5 class="card-title">${filtered_item_arr[i].item_name}</h5>
-                <p class="card-text">price: ${filtered_item_arr[i].unit_price}$</p>
-                <p class="card-text"><a href="/${filtered_item_arr[i].category}/${filtered_item_arr[i].item_id}">Buy now </a></p>
+                <h5 class="card-title">${items2[i].item_name}</h5>
+                <p class="card-text">price: ${items2[i].unit_price}$</p>
+                <p class="card-text"><a href="/${items2[i].category}/${items2[i].item_id}">Buy now </a></p>
               </div>
             </div>
           </div>
@@ -45,6 +53,9 @@ itemSearchInp.addEventListener('input', async (e) =>{
     }
    
 })
+}catch(e){
+    console.log(e)
+}
 });
 
 const outputHTML = matches => {

@@ -13,10 +13,7 @@ const electricRouter = require("./routes/electric");
 const mountainRouter = require("./routes/mountain");
 const childRouter = require("./routes/child");
 const shoppingCartRouter = require("./routes/shoppingCart");
-const getItems = require("./routes/apis/search_items/getItems");
-const getChildItems = require("./routes/apis/search_items/getChildItems");
-const getMountItems = require("./routes/apis/search_items/getMountItems");
-const getElectricItems = require("./routes/apis/search_items/getElectricItems");
+const getCategoryItems = require("./routes/apis/search_items/getCategoryItems");
 
 const app = express();
 
@@ -40,10 +37,8 @@ app.use("/electric", electricRouter);
 app.use("/mountain", mountainRouter);
 app.use("/child", childRouter);
 app.use("/shoppingCart", shoppingCartRouter);
-app.use("/getItems" ,getItems);
-app.use("/getChildItems" ,getChildItems);
-app.use("/getMountItems" ,getMountItems);
-app.use("/getElectricItems" ,getElectricItems);
+app.use("/getCategoryItems" ,getCategoryItems);
+
 
 // catch 404 and forward to error handler
 
