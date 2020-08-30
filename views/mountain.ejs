@@ -3,7 +3,7 @@
   <head>
     <title>mountain bikes page</title>
     <link
-      rel="stylesheet" 
+      rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
@@ -26,18 +26,18 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://kit.fontawesome.com/cc62548657.js" crossorigin="anonymous"></script>
-      <script src="/javascripts/search/mountItemSearch.js" defer async></script>
+      src="https://kit.fontawesome.com/cc62548657.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/javascripts/search/mountItemSearch.js" defer async></script>
   </head>
 
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <%- include("components/nav", {cpage:cpage}) %>
       <div id="main" class="row row-cols-1 row-cols-md-3">
-    
         <%- include("components/mount_items", {mountarr:mountarr}) %>
-   
-    </div>
+      </div>
       <div id="autoCompList"></div>
       <footer></footer>
     </div>

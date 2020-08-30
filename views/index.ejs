@@ -25,12 +25,14 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://kit.fontawesome.com/cc62548657.js" crossorigin="anonymous"></script>
+      src="https://kit.fontawesome.com/cc62548657.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="/javascripts/search/itemSearch.js" defer async></script>
   </head>
 
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <%- include("components/nav", {cpage:cpage, loginname:loginname}) %>
       <main class="mainPage" id="main">
         <div>
@@ -40,11 +42,14 @@
           <div>
             <span> <%= VerfiedUser %></span>
           </div>
-<ul>
-          <li>מחירים ללא תחרות!</li><br />
-          <li>אחראיות לשנתיים על כל המוצרים  </li><br />
-          <li>יבואן הרשמי בלבד!</li>
-        </ul><br />
+          <ul>
+            <li>מחירים ללא תחרות!</li>
+            <br />
+            <li>אחראיות לשנתיים על כל המוצרים</li>
+            <br />
+            <li>יבואן הרשמי בלבד!</li>
+          </ul>
+          <br />
         </div>
       </main>
       <div class="main" id="searchContent"></div>
