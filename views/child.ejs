@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>chilren bikes page</title>
+<<<<<<< Updated upstream
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -40,6 +41,40 @@
       </div>
       <div id="autoCompList"></div>
       <footer></footer>
+=======
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/store.css' />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+      <script src="/javascripts/search/childItemSearch.js" defer async></script>
+      <!-- <script src="/javascripts/pagination/childPagination.js" defer async></script> -->
+</head>
+
+<body>
+    <div class="container">
+        <%- include("components/nav", {cpage:cpage}) %>
+        <div id="main" class="row row-cols-1 row-cols-md-3">
+            <%- include("components/child_items", {childarr:childarr}) %>
+    </div>
+    
+    <div id="autoCompList" class="autoCompList"></div> <!-- search results -->
+    <div id="pagesShowUp" class="row row-cols-1 row-cols-md-3"></div> <!-- pagination -->
+      
+        <div class="pageButtons">
+        <button id="pageDownBtn" class="btn btn-secondary btn-sm" >PAGE DOWN</button>
+        <button id="pageUpBtn" class="btn btn-secondary btn-sm" >PAGE UP</button>
+    </div>
+        <footer></footer>
+>>>>>>> Stashed changes
     </div>
   </body>
 </html>

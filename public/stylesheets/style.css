@@ -79,3 +79,10 @@ body {
   top: 10%;
   right: 10%;
 }
+.pageButtons{
+  display: flex;
+  justify-content: space-between;
+}
+.autoCompList{
+  z-index: 1;
+}

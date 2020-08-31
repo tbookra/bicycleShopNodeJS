@@ -1,6 +1,7 @@
 const express = require("express");
 const authMiddleware = require("../middleware/auth");
 const Items = require('../models/mySql/Items');
+const Pagination = require('../models/mySql/pagination');
 const router = express.Router();
 
 // router.use(authMiddleware);
@@ -10,7 +11,7 @@ const passwordWasModified = require('../middleware/passwordWasModified');
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   try{
-  let productsInfo = await Items.getItemsByCategory('electric');
+  let productsInfo = await Pagination.pageItems('electric',9,0);
   let arr = productsInfo[0];
   module.exports.electricInfo = productsInfo[0];
  
@@ -24,6 +25,18 @@ router.get("/", async function (req, res, next) {
     ...req.nav,
     electricarr: arr,
   });
+} catch (e) {
+  console.log(e);
+}
+
+});
+
+router.post("/", async function (req, res, next) {
+  try{
+    const {limit,offset} = req.body;
+    let productsInfo = await Pagination.pageItems('electric',limit,offset);
+    let arr = productsInfo[0];
+    res.json(arr);
 } catch (e) {
   console.log(e);
 }

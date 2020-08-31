@@ -1,42 +1,67 @@
 window.addEventListener('load', async () => {
-    let itemSearchInp = document.getElementById('itemSearchInp');
-    let main = document.getElementById('main');
-    let autoCompList = document.getElementById('autoCompList');
+    const itemSearchInp = document.getElementById('itemSearchInp');
+    const main = document.getElementById('main');
+    const autoCompList = document.getElementById('autoCompList');
+    const pageUpBtn = document.getElementById('pageUpBtn');
+    const pageDownBtn = document.getElementById('pageDownBtn');
+    const pagesShowUp = document.getElementById('pagesShowUp');
+
+    const LIMIT = 9;
+
+    main.hidden = false;
+    pagesShowUp.hidden = true;
+    autoCompList.hidden = true;
+
     try{
 
         let items = await fetch_get("/getCategoryItems/getchild");
         let itemsArr = items[0];
-    
+        let items2
     
 itemSearchInp.addEventListener('input', async (e) =>{
-    try{
-        let items2 = await fetch_post("/getCategoryItems",{
-            str:e.target.value,
-            category:'child'
-        });
-        let l2 = items2.length;
-        // let filtered_item_arr = await itemsArr.filter(item=>item.item_name.startsWith(e.target.value));
-        // let l1 = filtered_item_arr.length;
-        let str = "";
-        if(l2>0){
-            for (let i =0; i < l2; i++){ 
-                str += `
-                <div class="col mb-4">
-            <div class="card h-100">
-              <img src="${items2[i].img_url}" class="card-img-top" alt="item">
-              <div class="card-body">
-                <h5 class="card-title">${items2[i].item_name}</h5>
-                <p class="card-text">price: ${items2[i].unit_price}$</p>
-                <p class="card-text"><a href="/${items2[i].category}/${items2[i].item_id}">Buy now </a></p>
+    try{ // items show up on search input
+
+        if(e.target.value){
+            main.hidden = true;
+            pagesShowUp.hidden = false;
+            autoCompList.hidden = false;
+
+                items2 = await fetch_post("/getCategoryItems",{
+                str:e.target.value,
+                category:'child'
+            })
+        } else {
+                console.log('null');
+                items2 = await fetch_post('/child',{
+                    limit: LIMIT,
+                    offset: offset
+                });
+            };
+            let l2 = items2.length;
+            let str = "";
+            if(l2>0){
+                for (let i =0; i < l2; i++){ 
+                    str += `
+                    <div class="col mb-4">
+                <div class="card h-100">
+                  <img src="${items2[i].img_url}" class="card-img-top" alt="item">
+                  <div class="card-body">
+                    <h5 class="card-title">${items2[i].item_name}</h5>
+                    <p class="card-text">price: ${items2[i].unit_price}$</p>
+                    <p class="card-text"><a href="/${items2[i].category}/${items2[i].item_id}">Buy now </a></p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-                `
-            main.innerHTML = str;
-            }
+                    `
+                main.innerHTML = str;
+                }
         }
+         // the auto complete code
         if(itemSearchInp.value.length>0){
-            // the auto complete code
+            main.hidden = false;
+            pagesShowUp.hidden = true;
+            autoCompList.hidden = false;
+
             let matches = itemsArr.filter(item => {
                 const regex = new RegExp(`^${itemSearchInp.value}`, 'gi');
                 return item.item_name.match(regex);
@@ -55,6 +80,73 @@ itemSearchInp.addEventListener('input', async (e) =>{
 })
 }catch(e){
     console.log(e)
+};
+
+let offset = 0;
+let stingDiv = '';
+
+pageUpBtn.onclick = async (event) => {
+
+main.hidden = true;
+pagesShowUp.hidden = false;
+autoCompList.hidden = false;
+stingDiv = '';
+
+offset = offset + LIMIT;
+console.log(offset ,LIMIT);
+let itemsArr = await fetch_post('/child',{
+    limit: LIMIT,
+    offset: offset
+});
+let itemsCount = itemsArr.length;
+for (let i = 0; i < itemsCount; i++){
+    stingDiv += `
+    <div class="col mb-4">
+    <div class="card h-100">
+      <img src="${itemsArr[i].img_url}" class="card-img-top" alt="item">
+      <div class="card-body">
+        <h5 class="card-title">${itemsArr[i].item_name}</h5>
+        <p class="card-text">price: ${itemsArr[i].unit_price}$</p>
+        <p class="card-text"><a href="/${itemsArr[i].category}/${itemsArr[i].item_id}">Buy now </a></p>
+      </div>
+    </div>
+  </div>
+    `;
+    pagesShowUp.innerHTML = stingDiv;
+}
+};
+
+pageDownBtn.onclick = async (event) => {
+     if(offset == 0){
+        console.log('cannot go down here');
+    } else {
+        main.hidden = true;
+        pagesShowUp.hidden = false;
+        autoCompList.hidden = false;
+
+        stingDiv = '';
+        offset = offset - LIMIT;
+        let itemsArr = await fetch_post('/child',{
+            limit: LIMIT,
+            offset: offset
+        });
+        let itemsCount = itemsArr.length;
+        for (let i = 0; i < itemsCount; i++){
+            stingDiv += `
+            <div class="col mb-4">
+            <div class="card h-100">
+              <img src="${itemsArr[i].img_url}" class="card-img-top" alt="item">
+              <div class="card-body">
+                <h5 class="card-title">${itemsArr[i].item_name}</h5>
+                <p class="card-text">price: ${itemsArr[i].unit_price}$</p>
+                <p class="card-text"><a href="/${itemsArr[i].category}/${itemsArr[i].item_id}">Buy now </a></p>
+              </div>
+            </div>
+          </div>
+            `;
+            pagesShowUp.innerHTML = stingDiv;
+        }
+    }
 }
 });
 
