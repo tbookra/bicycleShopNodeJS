@@ -1,10 +1,12 @@
 const Users = require("../../models/mySql/Users");
 const bcrypt = require("../../auth/bcrypt");
 const JWT = require("../../auth/jwt");
-const passwordModiffication = require('../../middleware/passwordToModify');
+let Items = require('../../models/mySql/Items');
+const passwordToModify = require('../../middleware/passwordToModify');
+passwordWasModified = require('../../middleware/passwordWasModified');
 
 let token_id = undefined;
-
+ 
 const loginPage = async (req, res) => {
   try {
     req.session.signinErr = [];
@@ -46,8 +48,18 @@ const login = async (req, res,next) => {
         await Users.last_access_date(user[0].email);
         let expiresIn = req.body.rememberMe ? true : false;
         token_id = await JWT.generateToken(user[0].email, expiresIn);
-        req.session.auth_token = token_id,
-        next();
+        req.session.auth_token = token_id;
+
+        if(req.session.lastLocation){
+          let item_obj = req.session.lastLocation
+          let place = await Items.getItemByID(item_obj.item_id);
+          place = place[0][0];
+          res.render("place_ditales", { ...req.nav, title: place.item_name, place: place });
+        } else {
+          next();
+        }
+       
+      
       } else {
         // if user exists but a wrong password
         req.session.loginErr = ["email or password incorrect"];

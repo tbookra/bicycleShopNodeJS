@@ -7,10 +7,20 @@ window.addEventListener('load', async () => {
     const pagesShowUp = document.getElementById('pagesShowUp');
 
     const LIMIT = 9;
+    let sort = 'asc';
 
     main.hidden = false;
     pagesShowUp.hidden = true;
     autoCompList.hidden = true;
+
+    sortBtn.onclick = (e) =>{
+        if(sort === 'asc'){
+            sort = 'desc';
+        } else {
+            sort = 'asc'
+        }
+        console.log(sort)
+       }
 
     try{
 
@@ -34,7 +44,8 @@ itemSearchInp.addEventListener('input', async (e) =>{
                 console.log('null');
                 items2 = await fetch_post('/mountain',{
                     limit: LIMIT,
-                    offset: offset
+                    offset: offset,
+                    sort: sort
                 });
             };
             let l2 = items2.length;
@@ -96,7 +107,8 @@ offset = offset + LIMIT;
 console.log(offset ,LIMIT);
 let itemsArr = await fetch_post('/mountain',{
     limit: LIMIT,
-    offset: offset
+    offset: offset,
+    sort: sort
 });
 let itemsCount = itemsArr.length;
 for (let i = 0; i < itemsCount; i++){
@@ -128,7 +140,8 @@ pageDownBtn.onclick = async (event) => {
         offset = offset - LIMIT;
         let itemsArr = await fetch_post('/mountain',{
             limit: LIMIT,
-            offset: offset
+            offset: offset,
+            sort: sort
         });
         let itemsCount = itemsArr.length;
         for (let i = 0; i < itemsCount; i++){

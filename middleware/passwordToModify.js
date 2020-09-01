@@ -13,7 +13,9 @@ module.exports = async (req, res, next) => {
         req.session.changePassword = true
     }
     if (!req.session.changePassword) {
-     res.redirect('/');
+      // console.log('req.session.lastLocation',req.session.lastLocation);
+      res.redirect('/');
+    // req.session.lastLocation ? res.render("place_ditales", { ...req.nav, title: 'express', place: req.session.lastLocation }) : res.redirect('/');
     } else {
       res.redirect("/auth/update");
    

@@ -86,3 +86,13 @@ body {
 .autoCompList{
   z-index: 1;
 }
+#sortBtn{
+  cursor: pointer;
+}
+#helloUser{
+  font-size: 1.5rem;
+  color: blue;
+  position: absolute;
+  top: 15%;
+  right: 10%;
+}
