@@ -52,9 +52,10 @@ const login = async (req, res,next) => {
 
         if(req.session.lastLocation){
           let item_obj = req.session.lastLocation
-          let place = await Items.getItemByID(item_obj.item_id);
-          place = place[0][0];
-          res.render("place_ditales", { ...req.nav, title: place.item_name, place: place });
+          // let place = await Items.getItemByID(item_obj.item_id);
+          // place = place[0][0];
+          // res.render("place_ditales", { ...req.nav, title: place.item_name, place: place });
+          res.redirect(`/${item_obj.category}/${item_obj.item_id}`)
         } else {
           next();
         }
