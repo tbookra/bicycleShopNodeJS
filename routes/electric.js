@@ -48,7 +48,6 @@ router.get("/:item_id",lastLocation, authMiddleware, passwordWasModified , async
 
   let place = await Items.getItemByID(req.params.item_id);
   place = place[0][0];
-  console.log('place',place)
   res.render("place_ditales", { ...req.nav, title: place.item_name, place: place });
 });
 

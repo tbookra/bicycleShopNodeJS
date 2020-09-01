@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
         req.session.changePassword = true
     }
     if (!req.session.changePassword) {
-      // console.log('req.session.lastLocation',req.session.lastLocation);
+      console.log('req.session.lastLocation',req.session.lastLocation);
       res.redirect('/');
     // req.session.lastLocation ? res.render("place_ditales", { ...req.nav, title: 'express', place: req.session.lastLocation }) : res.redirect('/');
     } else {
