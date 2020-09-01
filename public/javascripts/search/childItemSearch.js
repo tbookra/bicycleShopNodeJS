@@ -8,18 +8,47 @@ window.addEventListener('load', async () => {
 
     const LIMIT = 9;
     let sort = 'asc';
+    let stingDiv = '';
 
     main.hidden = false;
     pagesShowUp.hidden = true;
     autoCompList.hidden = true;
 
-    sortBtn.onclick = (e) =>{
+    
+    sortBtn.onclick = async (e) =>{
+        main.hidden = true;
+        pagesShowUp.hidden = false;
+        autoCompList.hidden = false;
         if(sort === 'asc'){
             sort = 'desc';
         } else {
             sort = 'asc'
-        }
-        console.log(sort)
+        };
+        stingDiv = '';
+        let sortedArr = await fetch_post('/getCategoryItems/getsort',{
+            category: 'child',
+            sort: sort
+        });
+        sortedArr = sortedArr[0];
+        console.log('sortedArr',sortedArr);
+        let l1 = sortedArr.length;
+        for (let i = 0; i < l1; i++){
+            stingDiv += `
+            <div class="col mb-4">
+            <div class="card h-100">
+              <img src="${sortedArr[i].img_url}" class="card-img-top" alt="item">
+              <div class="card-body">
+                <h5 class="card-title">${sortedArr[i].item_name}</h5>
+                <p class="card-text">price: ${sortedArr[i].unit_price}$</p>
+                <p class="card-text"><a href="/${sortedArr[i].category}/${sortedArr[i].item_id}">Buy now </a></p>
+              </div>
+            </div>
+          </div>
+            `;
+            
+        };
+            pagesShowUp.innerHTML = stingDiv;
+    //  location.href = 'http://localhost:3029/electric';
        }
 
     try{
@@ -65,24 +94,23 @@ itemSearchInp.addEventListener('input', async (e) =>{
               </div>
                     `
                 main.innerHTML = str;
-                }
+                };
+                if(itemSearchInp.value.length>0){
+                    main.hidden = false;
+                    pagesShowUp.hidden = true;
+                    autoCompList.hidden = false;
+        
+                    let matches = items2;
+                    outputHTML(matches);
+            }
+            else {
+                matches = [];
+                autoCompList.innerHTML = '';
+            }
+
         }
          // the auto complete code
-        if(itemSearchInp.value.length>0){
-            main.hidden = false;
-            pagesShowUp.hidden = true;
-            autoCompList.hidden = false;
-
-            let matches = itemsArr.filter(item => {
-                const regex = new RegExp(`^${itemSearchInp.value}`, 'gi');
-                return item.item_name.match(regex);
-            });
-            outputHTML(matches);
-    }
-    else {
-        matches = [];
-        autoCompList.innerHTML = '';
-    }
+       
   
     } catch(e){
         console.log(e)
@@ -94,16 +122,22 @@ itemSearchInp.addEventListener('input', async (e) =>{
 };
 
 let offset = 0;
-let stingDiv = '';
 
 pageUpBtn.onclick = async (event) => {
+let items = await fetch_get("/getCategoryItems/getchild");
+items = items[0];
 
 main.hidden = true;
 pagesShowUp.hidden = false;
 autoCompList.hidden = false;
 stingDiv = '';
 
-offset = offset + LIMIT;
+if(( offset + LIMIT)>items.length){
+    offset = offset + 0;  
+} else {
+    offset = offset + LIMIT;
+}
+
 console.log(offset ,LIMIT);
 let itemsArr = await fetch_post('/child',{
     limit: LIMIT,
@@ -137,6 +171,7 @@ pageDownBtn.onclick = async (event) => {
         autoCompList.hidden = false;
 
         stingDiv = '';
+
         offset = offset - LIMIT;
         let itemsArr = await fetch_post('/child',{
             limit: LIMIT,
@@ -167,8 +202,8 @@ const outputHTML = matches => {
     if(matches.length > 0){
         const html = matches.map(match => `
         <div class="card card-body mb-1">
-        <h4>${match.item_name} <span
-        class="text-primary">${match.category}</span></h4>
+        <h4><a href="/${match.category}/${match.item_id}">${match.item_name} </a><span
+        class="text-secondary">${match.category}</span></h4>
         <small>price: ${match.unit_price}</small></div>
         `).join('');
         autoCompList.innerHTML = html;

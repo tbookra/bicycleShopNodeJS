@@ -7,10 +7,10 @@ const signinController = require("../controllers/auth/signin");
 const updateController = require("../controllers/auth/update");
 
 const authMiddleware = require("../middleware/auth"); 
-const passwordModify = require('../middleware/passwordToModify');
+const passwordToModify = require('../middleware/passwordToModify');
 
 router.get("/login", loginController.loginPage);
-router.post("/login", loginController.login,passwordModify);
+router.post("/login", loginController.login,passwordToModify);
 
 router.get("/logout", logoutController.logout);
 

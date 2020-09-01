@@ -3,7 +3,7 @@ const bcrypt = require("../../auth/bcrypt");
 const JWT = require("../../auth/jwt");
 let Items = require('../../models/mySql/Items');
 const passwordToModify = require('../../middleware/passwordToModify');
-passwordWasModified = require('../../middleware/passwordWasModified');
+const passwordWasModified = require('../../middleware/passwordWasModified');
 
 let token_id = undefined;
  
@@ -44,14 +44,14 @@ const login = async (req, res,next) => {
       let passAuth = await bcrypt.checkPassword(password, user[0].password);
       if (passAuth) {
         // this part is where everything is right
-        req.session.name = user[0].email;
+        req.session.name = user[0];
         await Users.last_access_date(user[0].email);
         let expiresIn = req.body.rememberMe ? true : false;
         token_id = await JWT.generateToken(user[0].email, expiresIn);
         req.session.auth_token = token_id;
-
+        let item_obj = req.session.lastLocation
         if(req.session.lastLocation){
-          let item_obj = req.session.lastLocation
+          
           // let place = await Items.getItemByID(item_obj.item_id);
           // place = place[0][0];
           // res.render("place_ditales", { ...req.nav, title: place.item_name, place: place });

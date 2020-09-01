@@ -7,15 +7,17 @@ module.exports = async (req, res, next) => {
     let LastPasswordModification = user1[0].last_password_modification / DATE_TO_DAYS;
     let today = new Date()/DATE_TO_DAYS;
     let dif = today - LastPasswordModification;
-    if(dif<DAYS_TO_PASSWORD_MODIFFICATION){ // no need to change password
-        req.session.changePassword = false
+    if(dif<DAYS_TO_PASSWORD_MODIFFICATION){ // true meens no need to change password
+        req.session.changePassword = false // meens no need to change password
     } else {
-        req.session.changePassword = true
+        req.session.changePassword = true // meens that password should change
     }
-    if (!req.session.changePassword) {
-      console.log('req.session.lastLocation',req.session.lastLocation);
-      res.redirect('/');
-    // req.session.lastLocation ? res.render("place_ditales", { ...req.nav, title: 'express', place: req.session.lastLocation }) : res.redirect('/');
+    if (!req.session.changePassword) { // meens no need to change password = true
+      if(req.session.lastLocation){
+        res.redirect(`/${item_obj.category}/${item_obj.item_id}`);
+      } else {
+        res.redirect('/');
+      }
     } else {
       res.redirect("/auth/update");
    

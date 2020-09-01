@@ -1,5 +1,6 @@
 const express = require("express");
 const Items = require('../../../models/mySql/Items');
+const pagination = require('../../../models/mySql/pagination');
 const router = express.Router();
 
 router.get("/getchild", async (req,res)=>{
@@ -35,6 +36,11 @@ router.post("/getall", async (req,res)=>{
    search = search[0];
    res.json(search);
 })
+router.post("/getsort", async (req,res)=>{
+    const {category,sort} = req.body;
+    let items = await pagination.pageItems(category,sort,9,0);
+    res.json(items);
+    });
 
 
 module.exports = router; 

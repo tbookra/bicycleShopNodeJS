@@ -40,7 +40,9 @@ const signin = async (req, res) => {
       let hashPassword = await bcrypt.hashPassword(password);
       data = await Users.createUser({ ...req.body, hashPassword });
       await JWT.generateToken(email);
-      res.redirect("/");
+      req.session.justRejistered = true;
+      req.session.name = req.body;
+      res.redirect("/"); 
     }
   } catch (e) {
     console.log(e);
