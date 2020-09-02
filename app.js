@@ -14,7 +14,7 @@ const mountainRouter = require("./routes/mountain");
 const childRouter = require("./routes/child");
 const shoppingCartRouter = require("./routes/shoppingCart");
 const ordersRouter = require("./routes/orders");
-const getCategoryItems = require("./routes/apis/search_items/getCategoryItems");
+const getCategoryItems = require("./routes/apis/get_items/getCategoryItems");
 
 const app = express();
 
