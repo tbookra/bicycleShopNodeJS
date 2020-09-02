@@ -35,14 +35,17 @@ const signin = async (req, res) => {
       req.session.signinErr = ["user already exist"];
       res.redirect("/auth/signin");
     } else {
-      // then here we create the new user 
+      // then here we create the new user
       await joiAuth.validateInputAsync(req.body);
       let hashPassword = await bcrypt.hashPassword(password);
       data = await Users.createUser({ ...req.body, hashPassword });
       await JWT.generateToken(email);
+      let [user] = await Users.getUserByEmail(email);
+      req.session.name = user[0].email;
+      req.session.user = user[0];
       req.session.justRejistered = true;
       req.session.name = req.body;
-      res.redirect("/"); 
+      res.redirect("/");
     }
   } catch (e) {
     console.log(e);

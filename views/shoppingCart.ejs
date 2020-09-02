@@ -68,9 +68,20 @@
       <div class="text-right">
         <strong>Total:<%= totalPrice %> $</strong>
       </div>
-
+      <% if(totalPrice > 0) { %>
+      <div class="text-right m-4">
+        <a
+          href="/orders/userInfo/<%=userID%>"
+          type="button"
+          class="btn btn-success"
+        >
+          Checkout
+        </a>
+      </div>
       <% } else { %>
-      <h2>Your shopping cart is empty.</h2>
+      <a href="/">Your Shopping cart is empty, continue shopping</a>
+      <% } %> <% } else { %>
+      <a href="/">Your Shopping cart is empty, continue shopping</a>
       <%} %>
     </div>
   </body>
