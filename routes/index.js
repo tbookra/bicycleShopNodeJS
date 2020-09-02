@@ -3,6 +3,7 @@ const router = express.Router();
 const Items = require("../models/mySql/Items");
 const indexPageController = require("../controllers/index/index");
 
+
 router.get("/", indexPageController.index);
 
 router.get("/search/:searchString", async (req, res) => {

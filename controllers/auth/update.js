@@ -1,4 +1,4 @@
-const Users = require("../../models/mySql/Users");
+const Users = require("../../models/mySql/Users"); 
 const joiAuthUpdate = require("../../auth/joiUpdate");
 const bcrypt = require("../../auth/bcrypt");
 
@@ -25,8 +25,10 @@ const update = async (req, res) => {
     await joiAuthUpdate.validateInputAsync(password, full_name);
     let hashPassword = await bcrypt.hashPassword(password);
     await Users.updateUser(hashPassword, full_name, email);
+    req.session.name = req.body;
+    req.session.justRejistered = true;
   } catch (e) {
-    console.log(e);
+    console.log(e); 
     req.session.updateErr = [...e.details.map((item) => item.message)];
     res.redirect("/update");
   }

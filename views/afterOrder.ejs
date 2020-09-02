@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>electric bikes page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="stylesheet" href="/stylesheets/store.css" />
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -29,27 +29,11 @@
       src="https://kit.fontawesome.com/cc62548657.js"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="/javascripts/search/electricItemSearch.js"
-      defer
-      async
-    ></script>
+    <title>Document</title>
   </head>
 
-<body>
-    <div class="container">
-        <%- include("components/nav", {cpage:cpage}) %>
-        <div id="main" class="row row-cols-1 row-cols-md-3">
-            <%- include("components/electric_item", {electricarr:electricarr}) %>
-    </div>
-    <div id="autoCompList" class="autoCompList"></div> <!-- search results -->
-    <div id="pagesShowUp" class="row row-cols-1 row-cols-md-3"></div> <!-- pagination -->
-      
-        <div class="pageButtons">
-        <button id="pageDownBtn" class="btn btn-secondary btn-sm" >PAGE DOWN</button>
-        <button id="pageUpBtn" class="btn btn-secondary btn-sm" >PAGE UP</button>
-    </div>
-        <footer></footer>
-    </div>
+  <body>
+    <h1 class="m-10">your order will arrive max after 2 weeks</h1>
+    <a href="/" class="m-10">Countinue Shopping</a>
   </body>
 </html>

@@ -13,6 +13,8 @@ const electricRouter = require("./routes/electric");
 const mountainRouter = require("./routes/mountain");
 const childRouter = require("./routes/child");
 const shoppingCartRouter = require("./routes/shoppingCart");
+const ordersRouter = require("./routes/orders");
+const getCategoryItems = require("./routes/apis/search_items/getCategoryItems");
 
 const app = express();
 
@@ -36,6 +38,8 @@ app.use("/electric", electricRouter);
 app.use("/mountain", mountainRouter);
 app.use("/child", childRouter);
 app.use("/shoppingCart", shoppingCartRouter);
+app.use("/orders", ordersRouter);
+app.use("/getCategoryItems", getCategoryItems);
 
 // catch 404 and forward to error handler
 

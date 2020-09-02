@@ -3,21 +3,33 @@ const JWT = require("../../auth/jwt");
 
 const index = async (req, res) => {
   try {
-    let verfiedUser = req.session.auth_token
+    let user;
+    let userList = await Users.getAllUsers();
+    userList = userList[0];
+    console.log('regis', req.session.justRegistered);
+    if(req.session.justRegistered){
+      user = req.session.name;
+     } else {
+      let verfiedUser = req.session.auth_token
       ? await JWT.verifyToken(req.session.auth_token)
       : undefined;
     verfiedUser
       ? (req.session.name = verfiedUser._id)
       : (req.session.name = undefined);
     console.log("verifyUser", verfiedUser);
-    let userList = await Users.getAllUsers();
-    let user = userList[0].filter((user) => user.email == verfiedUser._id);
+   
+    user = userList.filter((user) => user.email == verfiedUser._id);
+    user = user[0];
+    }
+    
+
     res.render("index", {
       title: "Express",
       ...req.nav,
-      userList: userList[0],
-      VerfiedUser: `HELLO ${user[0].full_name}`,
+      userList: userList,
+      VerfiedUser: `HELLO ${user.full_name}`,
     });
+
   } catch (e) {
     req.session.name = undefined;
     res.render("index", { title: "Express", ...req.nav, VerfiedUser: "" });

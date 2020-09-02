@@ -29,14 +29,23 @@
       src="https://kit.fontawesome.com/cc62548657.js"
       crossorigin="anonymous"
     ></script>
+    <script src="/javascripts/search/mountItemSearch.js" defer async></script>
   </head>
 
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <%- include("components/nav", {cpage:cpage}) %>
-      <main class="main">
+      <div id="main" class="row row-cols-1 row-cols-md-3">
         <%- include("components/mount_items", {mountarr:mountarr}) %>
-      </main>
+   
+    </div>
+    <div id="autoCompList" class="autoCompList"></div> <!-- search results -->
+    <div id="pagesShowUp" class="row row-cols-1 row-cols-md-3"></div> <!-- pagination -->
+      
+        <div class="pageButtons">
+        <button id="pageDownBtn" class="btn btn-secondary btn-sm" >PAGE DOWN</button>
+        <button id="pageUpBtn" class="btn btn-secondary btn-sm" >PAGE UP</button>
+    </div>
       <footer></footer>
     </div>
   </body>

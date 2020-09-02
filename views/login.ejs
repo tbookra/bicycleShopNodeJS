@@ -28,11 +28,15 @@
       src="https://kit.fontawesome.com/cc62548657.js"
       crossorigin="anonymous"
     ></script>
-    <script src="/javascripts/loginAuthAlerts.js" defer async></script>
+    <script
+      src="/javascripts/auth_alerts/loginAuthAlerts.js"
+      defer
+      async
+    ></script>
   </head>
 
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <%- include("components/nav", {cpage:cpage}) %>
       <main class="main">
         <form action="/auth/login" method="post">

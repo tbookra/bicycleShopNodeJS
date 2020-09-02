@@ -6,10 +6,11 @@ const logoutController = require("../controllers/auth/logout");
 const signinController = require("../controllers/auth/signin");
 const updateController = require("../controllers/auth/update");
 
-const authMiddleware = require("../middleware/auth");
+const authMiddleware = require("../middleware/auth"); 
+const passwordToModify = require('../middleware/passwordToModify');
 
 router.get("/login", loginController.loginPage);
-router.post("/login", loginController.login);
+router.post("/login", loginController.login,passwordToModify);
 
 router.get("/logout", logoutController.logout);
 
