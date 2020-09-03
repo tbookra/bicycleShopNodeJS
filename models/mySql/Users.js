@@ -67,6 +67,22 @@ let deleteUserInfo = (id) => {
   return mysql.execute(`DELETE FROM ${DB}.payment_info WHERE user_id =?`, [id]);
 };
 
+let giveUserBan = (email) => {
+  return mysql.execute(
+    `UPDATE ${DB}.users
+        SET is_in_ban = 1 WHERE email = ?;`,
+    [email]
+  );
+};
+
+let promoteToAdmin = (email) => {
+  return mysql.execute(
+    `UPDATE ${DB}.users
+        SET is_admin = 1 WHERE email = ?;`,
+    [email]
+  );
+};
+
 module.exports.getAllUsers = getAllUsers;
 module.exports.getUserByID = getUserByID;
 module.exports.getUserByEmail = getUserByEmail;
@@ -77,3 +93,5 @@ module.exports.deleteUser = deleteUser;
 module.exports.getUserInfo = getUserInfo;
 module.exports.insertUserInfo = insertUserInfo;
 module.exports.deleteUserInfo = deleteUserInfo;
+module.exports.giveUserBan = giveUserBan;
+module.exports.promoteToAdmin = promoteToAdmin;
