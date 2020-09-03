@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>electric bikes page</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -9,6 +9,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/store.css" />
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -24,37 +25,31 @@
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
       crossorigin="anonymous"
     ></script>
-    <script
+    <script 
       src="https://kit.fontawesome.com/cc62548657.js"
       crossorigin="anonymous"
     ></script>
-    <script src="/javascripts/search/itemSearch.js" defer async></script>
+    <script
+      src="/javascripts/functionality/electricItemSearch.js"
+      defer
+      async
+    ></script>
   </head>
 
-  <body>
-    <div class="container-fluid">
-      <%- include("components/nav", {cpage:cpage, loginname:loginname}) %>
-      <main class="mainPage" id="main">
-        <div>
-          <img src="/images/homepage.jpg" />
-        </div>
-        <div class="rtl mainPage">
-          <div>
-            <span id="helloUser"> <%= VerfiedUser %></span>
-          </div>
-          <ul>
-            <li>מחירים ללא תחרות!</li>
-            <br />
-            <li>אחראיות לשנתיים על כל המוצרים</li>
-            <br />
-            <li>יבואן הרשמי בלבד!</li>
-          </ul>
-          <br />
-        </div>
-      </main>
-      <div class="main" id="searchContent"></div>
-      <div id="autoCompList"></div>
-      <footer></footer>
+<body>
+    <div class="container">
+        <%- include("components/nav", {cpage:cpage}) %>
+        <div id="main" class="row row-cols-1 row-cols-md-3">
+            <%- include("components/electric_item", {electricarr:electricarr}) %>
+    </div>
+    <div id="autoCompList" class="autoCompList"></div> <!-- search results -->
+    <div id="pagesShowUp" class="row row-cols-1 row-cols-md-3"></div> <!-- pagination -->
+      
+        <div class="pageButtons">
+        <button id="pageDownBtn" class="btn btn-secondary btn-sm" >PAGE DOWN</button>
+        <button id="pageUpBtn" class="btn btn-secondary btn-sm" >PAGE UP</button>
+    </div>
+        <footer></footer>
     </div>
   </body>
 </html>

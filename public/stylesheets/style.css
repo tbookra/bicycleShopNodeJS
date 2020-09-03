@@ -2,9 +2,10 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-.main {
+.mainPage {
   display: flex;
   align-items: center;
+  justify-content: space-around;
 }
 
 .nav-item {
@@ -37,7 +38,7 @@ body {
   max-width: 40vw;
 }
 .purchase{
-  width: 15vw;
+  width: 30vw;
 }
 .orderedTable{
   color: black;
@@ -72,4 +73,26 @@ body {
   color: red;
 
   width: 13vw;
+}
+#autoCompList{
+  position: absolute;
+  top: 10%;
+  right: 10%;
+}
+.pageButtons{
+  display: flex;
+  justify-content: space-between;
+}
+.autoCompList{
+  z-index: 1;
+}
+#sortBtn{
+  cursor: pointer;
+}
+#helloUser{
+  font-size: 1.5rem;
+  color: blue;
+  position: absolute;
+  top: 15%;
+  right: 10%;
 }

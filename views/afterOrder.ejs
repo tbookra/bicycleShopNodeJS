@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= title %></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/stylesheets/style.css" />
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -28,33 +29,11 @@
       src="https://kit.fontawesome.com/cc62548657.js"
       crossorigin="anonymous"
     ></script>
-    <script src="/javascripts/search/itemSearch.js" defer async></script>
+    <title>Document</title>
   </head>
 
   <body>
-    <div class="container-fluid">
-      <%- include("components/nav", {cpage:cpage, loginname:loginname}) %>
-      <main class="mainPage" id="main">
-        <div>
-          <img src="/images/homepage.jpg" />
-        </div>
-        <div class="rtl mainPage">
-          <div>
-            <span id="helloUser"> <%= VerfiedUser %></span>
-          </div>
-          <ul>
-            <li>מחירים ללא תחרות!</li>
-            <br />
-            <li>אחראיות לשנתיים על כל המוצרים</li>
-            <br />
-            <li>יבואן הרשמי בלבד!</li>
-          </ul>
-          <br />
-        </div>
-      </main>
-      <div class="main" id="searchContent"></div>
-      <div id="autoCompList"></div>
-      <footer></footer>
-    </div>
+    <h1 class="m-10">your order will arrive max after 2 weeks</h1>
+    <a href="/" class="m-10">Countinue Shopping</a>
   </body>
 </html>

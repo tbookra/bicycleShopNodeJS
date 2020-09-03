@@ -38,10 +38,13 @@ const signin = async (req, res) => {
       // then here we create the new user
       await joiAuth.validateInputAsync(req.body);
       let hashPassword = await bcrypt.hashPassword(password);
-      console.table({ ...req.body, hashPassword });
       data = await Users.createUser({ ...req.body, hashPassword });
-      // data = await Users.createUser(email, hashPassword, full_name, darkMode);
       await JWT.generateToken(email);
+      let [user] = await Users.getUserByEmail(email);
+      req.session.name = user[0].email;
+      req.session.user = user[0];
+      req.session.justRejistered = true;
+      req.session.name = req.body;
       res.redirect("/");
     }
   } catch (e) {

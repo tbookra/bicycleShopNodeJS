@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>update Page</title>
+    <title><%= title %></title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -28,46 +28,38 @@
       src="https://kit.fontawesome.com/cc62548657.js"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="/javascripts/auth_alerts/updateAuthAlerts.js"
-      defer
-      async
-    ></script>
   </head>
 
   <body>
     <div class="container-fluid">
       <%- include("components/nav", {cpage:cpage}) %>
-      <main class="main">
-        <br />
-        <form action="/auth/update" method="post">
-          <% for (let item of dbusers){ %> <% if(item.email == loginname){ %>
-          <div><%= item.email %></div>
-          <br />
-          <input type="hidden" name="email" value="<%= item.email %>" /><br />
-          <label class="formRows" for="password">new password</label
-          ><input type="password" name="password" id="password" /><br />
-          <label class="formRows" for="full_name">new name</label
-          ><input
-            type="text"
-            name="full_name"
-            id="full_name"
-            value="<%= item.full_name %>"
-          /><br />
-          <% } %> <% } %>
-          <button>send</button>
-        </form>
+      <main class="main main1">
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img
+                src="<%=place.img_url%>"
+                class="card-img"
+                alt="place image"
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><%=place.item_name%></h5>
+                <p class="card-text"><%=place.unit_price%></p>
+                <p class="card-text">
+                  <small class="text-muted"
+                    >כל הזכויות שמורות. עד גמר המלאי!</small
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
         <br />
       </main>
-      <br /><br />
-      <div id="clientErr"></div>
-      <br />
-      <div>
-        <ul>
-          <% for (let item of errArrey) { %>
-          <li><%= item%></li>
-          <% } %>
-        </ul>
+      <div class="purchase">
+        <h2><a href="/shoppingCart/add/<%=place.item_id%>">Add To Cart</a></h2>
       </div>
 
       <footer></footer>

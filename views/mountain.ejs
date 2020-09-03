@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>update Page</title>
+    <title>mountain bikes page</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -9,6 +9,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/store.css" />
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -28,48 +29,23 @@
       src="https://kit.fontawesome.com/cc62548657.js"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="/javascripts/auth_alerts/updateAuthAlerts.js"
-      defer
-      async
-    ></script>
+    <script src="/javascripts/functionality/mountItemSearch.js" defer async></script>
   </head>
 
   <body>
     <div class="container-fluid">
       <%- include("components/nav", {cpage:cpage}) %>
-      <main class="main">
-        <br />
-        <form action="/auth/update" method="post">
-          <% for (let item of dbusers){ %> <% if(item.email == loginname){ %>
-          <div><%= item.email %></div>
-          <br />
-          <input type="hidden" name="email" value="<%= item.email %>" /><br />
-          <label class="formRows" for="password">new password</label
-          ><input type="password" name="password" id="password" /><br />
-          <label class="formRows" for="full_name">new name</label
-          ><input
-            type="text"
-            name="full_name"
-            id="full_name"
-            value="<%= item.full_name %>"
-          /><br />
-          <% } %> <% } %>
-          <button>send</button>
-        </form>
-        <br />
-      </main>
-      <br /><br />
-      <div id="clientErr"></div>
-      <br />
-      <div>
-        <ul>
-          <% for (let item of errArrey) { %>
-          <li><%= item%></li>
-          <% } %>
-        </ul>
-      </div>
-
+      <div id="main" class="row row-cols-1 row-cols-md-3">
+        <%- include("components/mount_items", {mountarr:mountarr}) %>
+   
+    </div>
+    <div id="autoCompList" class="autoCompList"></div> <!-- search results -->
+    <div id="pagesShowUp" class="row row-cols-1 row-cols-md-3"></div> <!-- pagination -->
+      
+        <div class="pageButtons">
+        <button id="pageDownBtn" class="btn btn-secondary btn-sm" >PAGE DOWN</button>
+        <button id="pageUpBtn" class="btn btn-secondary btn-sm" >PAGE UP</button>
+    </div>
       <footer></footer>
     </div>
   </body>
