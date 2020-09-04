@@ -9,7 +9,7 @@ const signinPage = async (req, res) => {
     req.session.updateErr = [];
     let errArrey = req.session.signinErr ? req.session.signinErr : [];
     let dbusers = await Users.getAllUsers();
-    res.render("signin", {
+    res.status(200).render("signin", {
       ...req.nav,
       dbusers: dbusers[0],
       errArrey: errArrey,
@@ -33,7 +33,7 @@ const signin = async (req, res) => {
     }
     if (user_exist) {
       req.session.signinErr = ["user already exist"];
-      res.redirect("/auth/signin");
+      res.status(401).redirect("/auth/signin");
     } else {
       // then here we create the new user
       await joiAuth.validateInputAsync(req.body);
@@ -45,12 +45,12 @@ const signin = async (req, res) => {
       req.session.user = user[0];
       req.session.justRejistered = true;
       req.session.name = req.body;
-      res.redirect("/");
+      res.status(201).redirect("/");
     }
   } catch (e) {
     console.log(e);
     req.session.signinErr = [...e.details.map((item) => item.message)];
-    res.redirect("/auth/signin");
+    res.status(401).redirect("/auth/signin");
   }
 };
 

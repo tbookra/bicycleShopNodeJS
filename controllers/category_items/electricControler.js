@@ -11,13 +11,13 @@ const electricPage = async function (req, res, next) {
         return item.item_name.search(req.query.search) >= 0;
       });
     }
-      res.render("electric", {
+      res.status(200).render("electric", {
       title: "Express",
       ...req.nav,
       electricarr: arr,
     });
   } catch (e) {
-    console.log(e);
+    res.status(400).json(e);
   }
   };
 
@@ -26,9 +26,9 @@ const electricPage = async function (req, res, next) {
       const {limit,offset,sort} = req.body;
       let productsInfo = await Pagination.pageItems('electric',sort,limit,offset);
       let arr = productsInfo[0];
-      res.json(arr);
+      res.status(200).json(arr);
   } catch (e) {
-    console.log(e);
+    res.status(400).json(e);
   }
   
   };
@@ -37,7 +37,7 @@ const electricPage = async function (req, res, next) {
 
     let place = await Items.getItemByID(req.params.item_id);
     place = place[0][0];
-    res.render("place_ditales", { ...req.nav, title: place.item_name, place: place });
+    res.status(200).render("place_ditales", { ...req.nav, title: place.item_name, place: place });
   };
 
   module.exports.electricPage = electricPage;

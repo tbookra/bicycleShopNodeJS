@@ -12,13 +12,13 @@ const mountainPage = async function (req, res, next) {
         return item.item_name.search(req.query.search) >= 0;
       });
     }
-    res.render("mountain", {
+    res.status(200).render("mountain", {
       title: "Express",
       ...req.nav,
       mountarr: arr,
     });
   } catch (e) {
-    console.log(e);
+    res.status(400).json(e);
   }
   };
 
@@ -27,9 +27,9 @@ const mountainPage = async function (req, res, next) {
       const {limit,offset,sort} = req.body;
       let productsInfo = await Pagination.pageItems('mountain',sort,limit,offset);
       let arr = productsInfo[0];
-      res.json(arr);
+      res.status(200).json(arr);
   } catch (e) {
-    console.log(e);
+    res.status(400).json(e);
   }
   };
 
@@ -37,7 +37,7 @@ const mountainPage = async function (req, res, next) {
  
     let place = await Items.getItemByID(req.params.item_id);
     place = place[0][0];
-    res.render("place_ditales", { ...req.nav, title: place.item_name, place: place });
+    res.status(200).render("place_ditales", { ...req.nav, title: place.item_name, place: place });
   };
 
 

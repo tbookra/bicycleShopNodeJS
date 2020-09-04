@@ -78,7 +78,7 @@ router.post("/placeOrder", async (req, res) => {
       }
       req.session.cart = {};
       req.session.userInfoValidation = [];
-      res.render("afterOrder");
+      res.status(201).render("afterOrder");
     }
   } catch (err) {
     console.log(err);

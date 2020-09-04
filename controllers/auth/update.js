@@ -9,7 +9,7 @@ const updatePage = async (req, res) => {
     let errArrey = req.session.updateErr ? req.session.updateErr : [];
     //שאילתה למשתמש ספציפי
     let dbusers = await Users.getAllUsers();
-    res.render("update", {
+    res.status(200).render("update", {
       ...req.nav,
       dbusers: dbusers[0],
       errArrey: errArrey,
@@ -30,11 +30,11 @@ const update = async (req, res) => {
   } catch (e) {
     console.log(e); 
     req.session.updateErr = [...e.details.map((item) => item.message)];
-    res.redirect("/update");
+    res.status(400).redirect("/update");
   }
   req.session.name = undefined;
   req.session.updateErr = [];
-  res.redirect("/");
+  res.status(200).redirect("/");
 };
 
 module.exports.updatePage = updatePage;

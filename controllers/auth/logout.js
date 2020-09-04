@@ -4,7 +4,7 @@ const logout = (req, res) => {
   req.session.auth_token = undefined;
   req.session.lastLocation = undefined;
   req.session.justRegistered = undefined;
-  res.redirect("/");
+  res.status(200).redirect("/");
 };
 
 module.exports.logout = logout;

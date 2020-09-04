@@ -23,7 +23,7 @@ const index = async (req, res) => {
     }
     
 
-    res.render("index", {
+    res.status(200).render("index", {
       title: "Express",
       ...req.nav,
       userList: userList,
@@ -32,7 +32,7 @@ const index = async (req, res) => {
 
   } catch (e) {
     req.session.name = undefined;
-    res.render("index", { title: "Express", ...req.nav, VerfiedUser: "" });
+    res.status(200).render("index", { title: "Express", ...req.nav, VerfiedUser: "" });
     console.log(e);
   }
 };

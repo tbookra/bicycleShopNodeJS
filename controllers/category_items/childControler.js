@@ -12,13 +12,13 @@ const childPage = async (req,res) => {
         return item.item_name.search(req.query.search) >= 0;
         });
       }
-        res.render("child", {
+        res.status(200).render("child", {
         title: "Express",
         ...req.nav,
         childarr: arr,
       });
     } catch (e) {
-      console.log(e);
+      res.status(400).json(e);
     }
 };
 
@@ -27,9 +27,9 @@ const childPost = async function (req, res, next) {
       const {limit,offset,sort} = req.body;
       let productsInfo = await Pagination.pageItems('child',sort,limit,offset);
       let arr = productsInfo[0];
-      res.json(arr);
+      res.status(200).json(arr);
   } catch (e) {
-    console.log(e);
+    res.status(400).json(e);
   }
 };
 
@@ -37,7 +37,7 @@ const childItem = async (req, res) => {
   
     let place = await Items.getItemByID(req.params.item_id);
     place = place[0][0];
-    res.render("place_ditales", { ...req.nav, title: place.item_name, place: place });
+    res.status(200).render("place_ditales", { ...req.nav, title: place.item_name, place: place });
   };
 
 module.exports.childPage = childPage;
