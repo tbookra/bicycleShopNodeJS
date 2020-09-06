@@ -3,9 +3,15 @@ const Items = require("../../models/mySql/Items");
 
 const adminPage = async (req, res) => {
   try {
-    let adminItemErr = req.session.adminItemErr || [];
+    let adminItemCreateErr = req.session.adminItemCreateErr || [];
+    let adminItemUpdateErr = req.session.adminItemUpdateErr || [];
     let adminUserErr = req.session.adminUserErr || [];
-    res.render("admin", { adminUserErr, adminItemErr, ...req.nav });
+    res.render("admin", {
+      adminUserErr,
+      adminItemCreateErr,
+      adminItemUpdateErr,
+      ...req.nav,
+    });
     req.session.err = undefined;
   } catch (e) {
     console.log(e);
@@ -17,7 +23,10 @@ const userPremissions = async (req, res) => {
   const { userEmailForAdmin } = req.body;
   const promoteToAdmin = req.body.promoteToAdmin ? "on" : "off";
   const giveUserban = req.body.giveUserBan ? "on" : "off";
-  if (!userEmailForAdmin) return res.redirect("/admin");
+  if (!userEmailForAdmin) {
+    req.session.adminUserErr = ["Please enter an email"];
+    return res.redirect("/admin");
+  }
   try {
     const [user] = await Users.getUserByEmail(userEmailForAdmin);
     console.log(user[0]);
@@ -28,9 +37,12 @@ const userPremissions = async (req, res) => {
     } else if (promoteToAdmin == "on" && giveUserban == "on") {
       req.session.adminUserErr = ["you cant choose both options"];
       console.log("both");
-    } else if (promoteToAdmin == "on")
+      return res.redirect("/admin");
+    } else if (promoteToAdmin == "on") {
       await Users.promoteToAdmin(userEmailForAdmin);
-    else if (giveUserban == "on") await Users.giveUserBan(userEmailForAdmin);
+    } else if (giveUserban == "on") {
+      await Users.giveUserBan(userEmailForAdmin);
+    }
     req.session.adminUserErr = [];
     res.redirect("/admin");
   } catch (err) {

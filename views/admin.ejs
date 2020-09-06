@@ -94,6 +94,140 @@
         </div>
         <% } %>
       </form>
+
+      <div class="continer-fluid m-4">
+        <h3>Item Option:</h3>
+        <form
+          class="continer m-4 form-inline"
+          method="POST"
+          action="/admin/userPremissions"
+        >
+          <h3 class="m-4">Create Item</h3>
+
+          <div class="form-group m-4">
+            <label for="createItem_item_name">Item Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="createItem_item_name"
+              name="createItem_item_name"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="createItem_category">Item Category:</label>
+            <select
+              class="form-control"
+              id="createItem_category"
+              name="createItem_category"
+            >
+              <option>Child</option>
+              <option>Electric</option>
+              <option>Mountain</option>
+            </select>
+          </div>
+
+          <div class="form-group m-4">
+            <label for="createItem_quntity">Quntity in Stock:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="createItem_quntity"
+              name="createItem_quntity"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="createItem_unit_price">Unit Price:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="createItem_unit_price"
+              name="createItem_unit_price"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="createItem_img_url">Item Image:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="createItem_img_url"
+              name="createItem_img_url"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary m-4">Submit</button>
+          <% if (adminItemCreateErr) { %>
+          <div>
+            <ul>
+              <% for (let item of adminItemCreateErr) { %>
+              <li><%= item%></li>
+              <% } %>
+            </ul>
+          </div>
+          <% } %>
+        </form>
+
+        <form
+          class="continer m-4 form-inline"
+          method="POST"
+          action="/admin/userPremissions"
+        >
+          <h3 class="m-4">Update Item</h3>
+          <div class="form-group m-4">
+            <label for="updateItem_item_id">Item ID:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="updateItem_item_id"
+              name="updateItem_item_id"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="updateItem_item_name">Item Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="updateItem_item_name"
+              name="updateItem_item_name"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="updateItem_quntity">Quntity in Stock:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="updateItem_quntity"
+              name="updateItem_quntity"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="updateItem_unit_price">Unit Price:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="updateItem_unit_price"
+              name="updateItem_unit_price"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="updateItem_img_url">Item Image:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="updateItem_img_url"
+              name="updateItem_img_url"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary m-4">Submit</button>
+          <% if (adminItemUpdateErr) { %>
+          <div>
+            <ul>
+              <% for (let item of adminItemUpdateErr) { %>
+              <li><%= item%></li>
+              <% } %>
+            </ul>
+          </div>
+          <% } %>
+        </form>
+      </div>
     </div>
   </body>
 </html>
