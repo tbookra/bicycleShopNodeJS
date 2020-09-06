@@ -98,9 +98,9 @@
       <div class="continer-fluid m-4">
         <h3>Item Option:</h3>
         <form
-          class="continer m-4 form-inline"
+          class="continer m-4 "
           method="POST"
-          action="/admin/userPremissions"
+          action="/admin/itemCreate"
         >
           <h3 class="m-4">Create Item</h3>
 
@@ -120,15 +120,16 @@
               id="createItem_category"
               name="createItem_category"
             >
-              <option>Child</option>
-              <option>Electric</option>
-              <option>Mountain</option>
+              <option>child</option>
+              <option>electric</option>
+              <option>mountain</option>
             </select>
           </div>
 
           <div class="form-group m-4">
             <label for="createItem_quntity">Quntity in Stock:</label>
             <input
+            value=0
               type="number"
               class="form-control"
               id="createItem_quntity"
@@ -138,6 +139,7 @@
           <div class="form-group m-4">
             <label for="createItem_unit_price">Unit Price:</label>
             <input
+            value=0
               type="number"
               class="form-control"
               id="createItem_unit_price"
@@ -153,7 +155,7 @@
               name="createItem_img_url"
             />
           </div>
-          <button type="submit" class="btn btn-primary m-4">Submit</button>
+          <button type="submit" class="btn btn-primary m-4">Create</button>
           <% if (adminItemCreateErr) { %>
           <div>
             <ul>
@@ -166,9 +168,9 @@
         </form>
 
         <form
-          class="continer m-4 form-inline"
+          class="continer m-4"
           method="POST"
-          action="/admin/userPremissions"
+          action="/admin/itemUpdate"
         >
           <h3 class="m-4">Update Item</h3>
           <div class="form-group m-4">
@@ -192,6 +194,7 @@
           <div class="form-group m-4">
             <label for="updateItem_quntity">Quntity in Stock:</label>
             <input
+            value=0
               type="number"
               class="form-control"
               id="updateItem_quntity"
@@ -201,6 +204,7 @@
           <div class="form-group m-4">
             <label for="updateItem_unit_price">Unit Price:</label>
             <input
+            value=0
               type="number"
               class="form-control"
               id="updateItem_unit_price"
@@ -216,7 +220,7 @@
               name="updateItem_img_url"
             />
           </div>
-          <button type="submit" class="btn btn-primary m-4">Submit</button>
+          <button type="submit" class="btn btn-primary m-4">Update</button>
           <% if (adminItemUpdateErr) { %>
           <div>
             <ul>
@@ -227,7 +231,23 @@
           </div>
           <% } %>
         </form>
-      </div>
+          <form class="continer m-4 " method="POST" action="/admin/itemDelete">
+            <h3 class="m-4">Delete Item</h3>
+            <div class="form-group m-4">
+              <label for="deleteItem_item_id">Item ID:</label>
+              <input type="number" class="form-control" id="deleteItem_item_id" name="deleteItem_item_id" />
+          </div>
+          <button type="submit" class="btn btn-primary m-4">Delete</button>
+          <% if (adminItemDeleteErr) { %>
+          <div>
+            <ul>
+              <% for (let item of adminItemDeleteErr) { %>
+              <li><%= item%></li>
+              <% } %>
+            </ul>
+          </div>
+          <% } %>
+        </form>
     </div>
   </body>
 </html>

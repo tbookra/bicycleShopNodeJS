@@ -5,11 +5,13 @@ const adminPage = async (req, res) => {
   try {
     let adminItemCreateErr = req.session.adminItemCreateErr || [];
     let adminItemUpdateErr = req.session.adminItemUpdateErr || [];
+    let adminItemDeleteErr = req.session.adminItemDeleteErr || [];
     let adminUserErr = req.session.adminUserErr || [];
     res.render("admin", {
       adminUserErr,
       adminItemCreateErr,
       adminItemUpdateErr,
+      adminItemDeleteErr,
       ...req.nav,
     });
     req.session.err = undefined;
