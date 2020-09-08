@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const session = require("express-session");
 const logger = require("morgan");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 const navNiddleWare = require("./middleware/nav");
@@ -18,6 +19,19 @@ const getCategoryItems = require("./routes/apis/get_items/getCategoryItems");
 const adminRouter = require("./routes/admin");
 
 const app = express();
+
+//connect to mongoDB
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+});
+mongoose.connection.on("connected", () => {
+  console.log("Connected to MONGO");
+});
+mongoose.connection.on("error", (err) => {
+  console.log("error connecting to MONGO", err);
+});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
