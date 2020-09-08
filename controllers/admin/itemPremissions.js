@@ -20,6 +20,7 @@ const adminItemCreate = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+  req.session.adminUserErr = [];
   res.redirect("/admin");
 };
 const adminItemUpdate = async (req, res) => {
@@ -35,6 +36,7 @@ const adminItemUpdate = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+  req.session.adminUserErr = [];
   res.redirect("/admin");
 };
 const adminItemDelete = async (req, res) => {
@@ -50,6 +52,7 @@ const adminItemDelete = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+  req.session.adminUserErr = [];
   res.redirect("/admin");
 };
 
