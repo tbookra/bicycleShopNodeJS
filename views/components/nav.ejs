@@ -44,6 +44,13 @@ url:"/child"}] %>
           <input type="checkbox" name="darkMode" id="darkMode" />
         </div>
       </li>
+          <%if(isAdmin && isAdmin == 1) {%>
+          <li>
+          <li class="nav-item <%=cpage=='/admin'?'active':''%>">
+            <a class="nav-link" href="/admin">ADMIN</a>
+          </li>
+          </li>
+          <%}%>
       <% for(let item of navarr){ %>
       <li class="nav-item <%=cpage==item.url?'active':''%>">
         <a class="nav-link" href="<%=item.url%>"><%=item.title%></a>

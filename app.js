@@ -15,6 +15,7 @@ const childRouter = require("./routes/child");
 const shoppingCartRouter = require("./routes/shoppingCart");
 const ordersRouter = require("./routes/orders");
 const getCategoryItems = require("./routes/apis/get_items/getCategoryItems");
+const adminRouter = require("./routes/admin");
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use("/child", childRouter);
 app.use("/shoppingCart", shoppingCartRouter);
 app.use("/orders", ordersRouter);
 app.use("/getCategoryItems", getCategoryItems);
+app.use("/admin", adminRouter);
 
 // catch 404 and forward to error handler
 
