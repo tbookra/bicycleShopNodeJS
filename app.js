@@ -18,8 +18,7 @@ const shoppingCartRouter = require("./routes/shoppingCart");
 const ordersRouter = require("./routes/orders");
 const getCategoryItems = require("./routes/apis/get_items/getCategoryItems");
 const adminRouter = require("./routes/admin");
-const { updateItem } = require("./models/mySql/Items");
-const { RSA_NO_PADDING } = require("constants");
+const reviewsRouter = require("./routes/reviews");
 
 const app = express();
 
@@ -59,32 +58,9 @@ app.use("/shoppingCart", shoppingCartRouter);
 app.use("/orders", ordersRouter);
 app.use("/getCategoryItems", getCategoryItems);
 app.use("/admin", adminRouter);
+app.use("/reviews", reviewsRouter);
 
 /////
-const Reviews = mongoose.model("Reviews");
-app.post("/review", async (req, res) => {
-  const { title, description, rating, itemId } = req.body;
-  try {
-    let itemReview = await Reviews.findOne({ itemId });
-    if (itemReview) {
-      itemReview.reviews = [
-        ...itemReview.reviews,
-        { title, description, rating },
-      ];
-      await itemReview.save();
-      res.json(itemReview);
-    } else {
-      const review = new Reviews({
-        itemId,
-        reviews: [{ title, description, rating }],
-      });
-      await review.save();
-      return res.json(review);
-    }
-  } catch (err) {
-    res.json(err);
-  }
-});
 
 // catch 404 and forward to error handler
 

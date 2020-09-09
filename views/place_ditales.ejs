@@ -33,7 +33,98 @@
   <body>
     <div class="container-fluid">
       <%- include("components/nav", {cpage:cpage}) %>
-      <main class="main main1">
+      <div class="row m-6">
+        <main class="main main1 col m-4">
+          <div class="card mb-3">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img
+                  src="<%=place.img_url%>"
+                  class="card-img"
+                  alt="place image"
+                />
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title"><%=place.item_name%></h5>
+                  <p class="card-text"><%=place.unit_price%></p>
+                  <p class="card-text">
+                    <small class="text-muted"
+                      >כל הזכויות שמורות. עד גמר המלאי!</small
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="purchase">
+            <h2>
+              <a href="/shoppingCart/add/<%=place.item_id%>">Add To Cart</a>
+            </h2>
+          </div>
+        </main>
+        <div class="col m-4 mt-5">
+          <%if(itemReview) { %>
+          <div class="reviews overflow-auto">
+            <h3>Item Reviews</h3>
+            <% for(let review of itemReview.reviews) { %>
+            <div class="itemReview">
+              <%-include("components/review",{review:review})%>
+            </div>
+            <% } %>
+          </div>
+          <% } else { %>
+          <h3>there is no reviews for this item</h3>
+          <% } %>
+        </div>
+        <div class="col m-4">
+          <h2>Add Review</h2>
+          <form action="/reviews" method="POST">
+            <input
+              type="hidden"
+              class="form-control"
+              id="item_id"
+              name="item_id"
+              value="<%=place.item_id%>"
+            />
+            <div class="form-group">
+              <label for="title">Review Title</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                placeholder="Review Title"
+              />
+            </div>
+            <div class="form-group">
+              <label for="description">Review Description</label>
+              <input
+                type="text"
+                class="form-control"
+                id="description"
+                name="description"
+                placeholder="Review Description"
+              />
+            </div>
+            <div class="form-group">
+              <label for="rating">Review Rating(1-5)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="rating"
+                name="rating"
+                min="0"
+                max="5"
+                placeholder="Review Rating"
+              />
+            </div>
+            <button>Submit Review</button>
+          </form>
+        </div>
+      </div>
+      <!-- <main class="main main1">
         <div class="card mb-3">
           <div class="row no-gutters">
             <div class="col-md-4">
@@ -57,12 +148,67 @@
           </div>
         </div>
         <br />
-      </main>
-      <div class="purchase">
-        <h2><a href="/shoppingCart/add/<%=place.item_id%>">Add To Cart</a></h2>
-      </div>
+        <div class="purchase">
+          <h2>
+            <a href="/shoppingCart/add/<%=place.item_id%>">Add To Cart</a>
+          </h2>
+        </div>
+      </main> -->
 
-      <div class="reviews"></div>
+      <!-- <%if(itemReview) { %>
+      <div class="reviews">
+        <h3>Item Reviews</h3>
+        <% for(let review of itemReview.reviews) { %>
+        <div class="itemReview">
+          <%-include("components/review",{review:review})%>
+        </div>
+        <% } %>
+      </div>
+      <% } else { %> -->
+      <!-- <h2>Add Review</h2>
+      <form action="/reviews" method="POST">
+        <input
+          type="hidden"
+          class="form-control"
+          id="item_id"
+          name="item_id"
+          value="<%=place.item_id%>"
+        />
+        <div class="form-group">
+          <label for="title">Review Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            placeholder="Review Title"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Review Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            name="description"
+            placeholder="Review Description"
+          />
+        </div>
+        <div class="form-group">
+          <label for="rating">Review Rating(1-5)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="rating"
+            name="rating"
+            min="0"
+            max="5"
+            placeholder="Review Rating"
+          />
+        </div>
+        <button>Submit Review</button>
+      </form> -->
+      <!-- <% } %> -->
     </div>
   </body>
 </html>

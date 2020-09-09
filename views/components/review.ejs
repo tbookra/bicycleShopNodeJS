@@ -1,0 +1,15 @@
+<div class="card m-3" style="width: 18rem">
+  <div class="card-body">
+    <h6 class="card-title"><%=review.title%></h5>
+    <hr />
+    <small class="card-text"><%=review.description%></small>
+    <hr />
+    <span class="card-text">
+      <% if(review.rating = "0") { %>
+      <small class="card-text">There is no rating for this review</small>
+      <% } else { %> 
+        <p class="card-text"><%=review.rating%></p>
+        <% } %>
+    </span>
+  </div>
+</div>
