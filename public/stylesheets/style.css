@@ -30,69 +30,73 @@ body {
   direction: rtl !important;
   text-align: right !important;
 }
-.mainPage{
+.mainPage {
   font-size: 2rem;
   color: darkred;
 }
-.main1{
+.main1 {
   max-width: 40vw;
 }
-.purchase{
+.purchase {
   width: 30vw;
 }
-.orderedTable{
+.orderedTable {
   color: black;
- 
+
   margin-left: 1vw;
 }
-.orderedTable th:nth-child(1){
+.orderedTable th:nth-child(1) {
   width: 30vw;
 }
-.orderedTable tr:nth-child(6){
+.orderedTable tr:nth-child(6) {
   width: 5vw;
   font-size: 1rem;
-  
 }
-.orderedTable th{
+.orderedTable th {
   font-size: 2rem;
   width: 8vw;
 }
-.orderedTable tr{
+.orderedTable tr {
   height: 5vh;
   border: 1px solid black;
   font-size: 1.5rem;
 }
-#totalCharge{
+#totalCharge {
   direction: rtl;
   width: 15vw;
   font-size: 1.5rem;
- margin-left: 10vw;
- margin-top: 10vh;
+  margin-left: 10vw;
+  margin-top: 10vh;
 }
-.formRows{
+.formRows {
   color: red;
 
   width: 13vw;
 }
-#autoCompList{
+#autoCompList {
   position: absolute;
   top: 10%;
   right: 10%;
 }
-.pageButtons{
+.pageButtons {
   display: flex;
   justify-content: space-between;
 }
-.autoCompList{
+.autoCompList {
   z-index: 1;
 }
-#sortBtn{
+#sortBtn {
   cursor: pointer;
 }
-#helloUser{
+#helloUser {
   font-size: 1.5rem;
   color: blue;
   position: absolute;
   top: 15%;
   right: 10%;
+}
+
+.reviews {
+  height: 400px;
+  width: 400px;
 }
