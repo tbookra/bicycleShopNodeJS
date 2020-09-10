@@ -5,11 +5,11 @@
     <small class="card-text"><%=review.description%></small>
     <hr />
     <span class="card-text">
-      <% if(review.rating = "0") { %>
-      <small class="card-text">There is no rating for this review</small>
+      <% if(review.rating > "0") { %>
+            <p class="card-text"><%=review.rating%></p>
       <% } else { %> 
-        <p class="card-text"><%=review.rating%></p>
-        <% } %>
+            <small class="card-text">There is no rating for this review</small>
+      <% } %>
     </span>
   </div>
 </div>

@@ -66,9 +66,10 @@
         </main>
         <div class="col m-4 mt-5">
           <%if(itemReview) { %>
+          <h3>Item Reviews</h3>
           <div class="reviews overflow-auto">
-            <h3>Item Reviews</h3>
-            <% for(let review of itemReview.reviews) { %>
+            <% for(let review of itemReview.reviews) { %> <%
+            console.log("review",review) %>
             <div class="itemReview">
               <%-include("components/review",{review:review})%>
             </div>
@@ -91,6 +92,7 @@
             <div class="form-group">
               <label for="title">Review Title</label>
               <input
+                required
                 type="text"
                 class="form-control"
                 id="title"
@@ -111,13 +113,14 @@
             <div class="form-group">
               <label for="rating">Review Rating(1-5)</label>
               <input
+                required
                 type="number"
                 class="form-control"
                 id="rating"
                 name="rating"
-                min="0"
-                max="5"
                 placeholder="Review Rating"
+                min="1"
+                max="5"
               />
             </div>
             <button>Submit Review</button>
