@@ -69,7 +69,6 @@
           <h3>Item Reviews</h3>
           <div class="reviews overflow-auto">
             <% for(let review of itemReview.reviews) { %> <%
-            console.log("review",review) %>
             <div class="itemReview">
               <%-include("components/review",{review:review})%>
             </div>
