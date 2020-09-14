@@ -63,6 +63,18 @@ let deleteItem = (itemID) => {
   return mysql.execute(`DELETE FROM ${DB}.items WHERE item_id = ?`, [itemID]);
 };
 
+let getMostReqItems = () => {
+  return mysql.execute(`
+    SELECT item_id, item_name, SUM(amount) as totalBuy FROM
+      (SELECT oi.order_id,oi.amount, i.item_id, i.item_name
+      FROM ${DB}.order_items oi
+      JOIN ${DB}.items i 
+      on oi.item_id = i.item_id) as t1
+    GROUP BY item_id
+    ORDER BY totalBuy desc
+    LIMIT 10`);
+};
+
 module.exports.getAllItems = getAllItems;
 module.exports.getItemsByCategory = getItemsByCategory;
 module.exports.getItemsBySearch = getItemsBySearch;
@@ -72,3 +84,4 @@ module.exports.getItemByName = getItemByName;
 module.exports.createItem = createItem;
 module.exports.updateItem = updateItem;
 module.exports.deleteItem = deleteItem;
+module.exports.getMostReqItems = getMostReqItems;
