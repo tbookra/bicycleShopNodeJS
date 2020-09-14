@@ -68,7 +68,7 @@
           <%if(itemReview) { %>
           <h3>Item Reviews</h3>
           <div class="reviews overflow-auto">
-            <% for(let review of itemReview.reviews) { %> <%
+            <% for(let review of itemReview.reviews) { %>
             <div class="itemReview">
               <%-include("components/review",{review:review})%>
             </div>
