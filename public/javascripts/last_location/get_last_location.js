@@ -2,10 +2,9 @@ window.addEventListener("load", async () => {
   try {
     const last_location = document.getElementById("last_location");
     let user = await fetch_get("/getUsers");
+   
     let lastItem = localStorage.getItem(user.email); // this is the item_id
-    lastItem = await fetch_post("/getCategoryItems/get_item_by_id", {
-      item_id: lastItem,
-    });
+    lastItem = await fetch_post("/getCategoryItems/get_item_by_id", {item_id: lastItem });
     let str = "";
     let lastItem_length = lastItem.length;
     for (let i = 0; i < lastItem_length; i++) {
