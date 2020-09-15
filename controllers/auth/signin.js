@@ -43,7 +43,7 @@ const signin = async (req, res) => {
       let [user] = await Users.getUserByEmail(email);
       req.session.name = user[0].email;
       req.session.user = user[0];
-      req.session.justRejistered = true;
+      req.session.justRegistered = true;
       req.session.name = req.body;
       res.status(201).redirect("/");
     }

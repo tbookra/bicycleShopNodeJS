@@ -26,7 +26,7 @@ const update = async (req, res) => {
     let hashPassword = await bcrypt.hashPassword(password);
     await Users.updateUser(hashPassword, full_name, email);
     req.session.name = req.body;
-    req.session.justRejistered = true;
+    req.session.justRegistered = true;
   } catch (e) {
     console.log(e);
     req.session.updateErr = [...e.details.map((item) => item.message)];
