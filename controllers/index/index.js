@@ -6,10 +6,10 @@ const index = async (req, res) => {
     let user;
     let userList = await Users.getAllUsers();
     userList = userList[0];
-    console.log('regis', req.session.justRegistered);
+    console.log('regis', req.session.justRegistered); 
     if(req.session.justRegistered){
-      user = req.session.name;
-     } else {
+      user = req.session.user;
+    } else {
       let verfiedUser = req.session.auth_token
       ? await JWT.verifyToken(req.session.auth_token)
       : undefined;
@@ -30,13 +30,13 @@ const index = async (req, res) => {
         greet = 'GOOD AFTERNOON '
       } else {
         if(hour >=17 && hour <21){
-          greet = 'GOOD EVENIN '
+          greet = 'GOOD EVENING '
         } else {
           greet = 'GOOD NIGHT '
         }
       }
     };
-
+       
     res.status(200).render("index", {
       title: "Express",
       ...req.nav,
@@ -45,6 +45,7 @@ const index = async (req, res) => {
     });
 
   } catch (e) {
+    req.session.user = undefined;
     req.session.name = undefined;
     res.status(200).render("index", { title: "Express", ...req.nav, VerfiedUser: "" });
     console.log(e);

@@ -60,6 +60,25 @@
               id="full_name"
               value="<%= item.full_name %>"
             /><br />
+            <span
+              ><label class="formRows" for="brightMode"
+                >Bright Mode</label
+              ></span
+            ><input
+              type="radio"
+              name="dark_mode"
+              id="brightMode"
+              value="0"
+              <%= item.dark_mode == 0 ? 'checked' : '' %>
+            /><br />
+            <span><label class="formRows" for="darkMode">Dark Mode</label></span
+            ><input
+              type="radio"
+              name="dark_mode"
+              id="darkMode"
+              value="1"
+              <%= item.dark_mode ? 'checked' : '' %>
+            /><br />
             <% } %> <% } %>
             <button id="loginBtn" class="ui inverted green button">send</button>
           </form>
