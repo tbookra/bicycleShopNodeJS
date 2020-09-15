@@ -42,17 +42,16 @@ const electricItem = async (req, res) => {
   try {
     const { item_id } = req.params;
     let itemReview = await Reviews.findOne({ itemId: item_id });
-    let place = await Items.getItemByID(item_id);
+    let place = await Items.getItemByID(req.params.item_id);
     place = place[0][0];
-    console.log(itemReview);
     res.status(200).render("place_ditales", {
       ...req.nav,
       title: place.item_name,
       place: place,
       itemReview,
     });
-  } catch (err) {
-    res.status(400).json(err);
+  } catch (e) {
+    res.status(400).json(e);
   }
 };
 

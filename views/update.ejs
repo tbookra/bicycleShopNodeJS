@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" mode-theme="light">
   <head>
     <title>update Page</title>
     <link
@@ -28,11 +28,16 @@
       src="https://kit.fontawesome.com/cc62548657.js"
       crossorigin="anonymous"
     ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
     <script
       src="/javascripts/auth_alerts/updateAuthAlerts.js"
       defer
       async
     ></script>
+    <script src="/javascripts/dark_mode/dark_mode.js" defer async></script>
   </head>
 
   <body>
@@ -40,36 +45,39 @@
       <%- include("components/nav", {cpage:cpage}) %>
       <main class="main">
         <br />
-        <form action="/auth/update" method="post">
-          <% for (let item of dbusers){ %> <% if(item.email == loginname){ %>
-          <div><%= item.email %></div>
-          <br />
-          <input type="hidden" name="email" value="<%= item.email %>" /><br />
-          <label class="formRows" for="password">new password</label
-          ><input type="password" name="password" id="password" /><br />
-          <label class="formRows" for="full_name">new name</label
-          ><input
-            type="text"
-            name="full_name"
-            id="full_name"
-            value="<%= item.full_name %>"
-          /><br />
-          <% } %> <% } %>
-          <button>send</button>
-        </form>
+        <div class="form_container">
+          <form action="/auth/update" method="post" class="auth_form">
+            <% for (let item of dbusers){ %> <% if(item.email == loginname){ %>
+            <div><%= item.full_name %></div>
+            <br />
+            <input type="hidden" name="email" value="<%= item.email %>" /><br />
+            <label class="formRows" for="password">new password</label
+            ><input type="password" name="password" id="password" /><br />
+            <label class="formRows" for="full_name">new name</label
+            ><input
+              type="text"
+              name="full_name"
+              id="full_name"
+              value="<%= item.full_name %>"
+            /><br />
+            <% } %> <% } %>
+            <button id="loginBtn" class="ui inverted green button">send</button>
+          </form>
+        </div>
         <br />
       </main>
       <br /><br />
-      <div id="clientErr"></div>
-      <br />
-      <div>
-        <ul>
-          <% for (let item of errArrey) { %>
-          <li><%= item%></li>
-          <% } %>
-        </ul>
+      <div class="errors">
+        <div id="clientErr"></div>
+        <br />
+        <div>
+          <ul>
+            <% for (let item of errArrey) { %>
+            <li><%= item%></li>
+            <% } %>
+          </ul>
+        </div>
       </div>
-
       <footer></footer>
     </div>
   </body>

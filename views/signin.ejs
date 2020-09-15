@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" mode-theme="light">
   <head>
     <title>sign Page</title>
     <link
@@ -28,46 +28,63 @@
       src="https://kit.fontawesome.com/cc62548657.js"
       crossorigin="anonymous"
     ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
     <script
       src="/javascripts/auth_alerts/signinAuthAlerts.js"
       async
       defer
     ></script>
+    <script src="/javascripts/dark_mode/dark_mode.js" defer async></script>
   </head>
 
   <body>
     <div class="container-fluid">
       <%- include("components/nav", {cpage:cpage}) %>
       <main class="main">
-        <form action="/auth/signin" method="post">
-          <span><label class="formRows" for="email">EMAIL:</label></span
-          ><input type="text" name="email" id="email" /><br />
-          <span><label class="formRows" for="password">PASSWORD:</label></span
-          ><input type="password" name="password" id="password" /><br />
-          <span><label class="formRows" for="full_name">FULL NAME:</label></span
-          ><input type="text" name="full_name" id="full_name" /><br />
-          <span
-            ><label class="formRows" for="brightMode">Bright Mode</label></span
-          ><input
-            type="radio"
-            name="darkMode"
-            id="brightMode"
-            value="0"
-            checked
-          /><br />
-          <span><label class="formRows" for="darkMode">Dark Mode</label></span
-          ><input type="radio" name="darkMode" id="darkMode" value="1" /><br />
-          <button>send</button>
-        </form>
+        <div class="form_container">
+          <form action="/auth/signin" method="post" class="auth_form">
+            <span><label class="formRows" for="email">EMAIL:</label></span
+            ><input type="text" name="email" id="email" /><br />
+            <span><label class="formRows" for="password">PASSWORD:</label></span
+            ><input type="password" name="password" id="password" /><br />
+            <span
+              ><label class="formRows" for="full_name">FULL NAME:</label></span
+            ><input type="text" name="full_name" id="full_name" /><br />
+            <span
+              ><label class="formRows" for="brightMode"
+                >Bright Mode</label
+              ></span
+            ><input
+              type="radio"
+              name="darkMode"
+              id="brightMode"
+              value="0"
+              checked
+            /><br />
+            <span><label class="formRows" for="darkMode">Dark Mode</label></span
+            ><input
+              type="radio"
+              name="darkMode"
+              id="darkMode"
+              value="1"
+            /><br />
+            <button id="loginBtn" class="ui inverted green button">send</button>
+          </form>
+        </div>
       </main>
       <br /><br />
-      <div id="clientErr"></div>
-      <div>
-        <ul>
-          <% for (let item of errArrey) { %>
-          <li><%= item%></li>
-          <% } %>
-        </ul>
+      <div class="errors">
+        <div id="clientErr"></div>
+        <div>
+          <ul>
+            <% for (let item of errArrey) { %>
+            <li><%= item%></li>
+            <% } %>
+          </ul>
+        </div>
       </div>
       <br />
 

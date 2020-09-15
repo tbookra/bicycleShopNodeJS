@@ -1,4 +1,4 @@
-const Users = require("../../models/mySql/Users"); 
+const Users = require("../../models/mySql/Users");
 const joiAuthUpdate = require("../../auth/joiUpdate");
 const bcrypt = require("../../auth/bcrypt");
 
@@ -16,7 +16,7 @@ const updatePage = async (req, res) => {
     });
     req.session.err = undefined;
   } catch (e) {
-    console.log(e);
+    res.status(400).json(e);
   }
 };
 const update = async (req, res) => {
@@ -28,9 +28,9 @@ const update = async (req, res) => {
     req.session.name = req.body;
     req.session.justRejistered = true;
   } catch (e) {
-    console.log(e); 
+    console.log(e);
     req.session.updateErr = [...e.details.map((item) => item.message)];
-    res.status(400).redirect("/update");
+    res.status(400).redirect("/auth/update");
   }
   req.session.name = undefined;
   req.session.updateErr = [];

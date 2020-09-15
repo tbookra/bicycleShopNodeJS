@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const authMiddleware = require("../middleware/auth");
 const Users = require("../models/mySql/Users");
 const Orders = require("../models/mySql/Orders");
 const Cart = require("../models/cart");

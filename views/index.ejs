@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html mode-theme="light">
   <head>
     <title><%= title %></title>
     <link
@@ -31,6 +31,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script src="/javascripts/search/itemSearch.js" defer async></script>
     <script src="/javascripts/functionality/topItems.js" defer async></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
+    <script
+      src="/javascripts/last_location/get_last_location.js"
+      defer
+      async
+    ></script>
+    <script src="/javascripts/dark_mode/dark_mode.js" defer async></script>
   </head>
 
   <body>
@@ -56,6 +66,7 @@
       </main>
       <div class="main" id="searchContent"></div>
       <div id="autoCompList"></div>
+      <div id="last_location" class="last_location"></div>
       <div>
         <canvas id="canvas"></canvas>
       </div>

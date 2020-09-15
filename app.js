@@ -19,6 +19,7 @@ const ordersRouter = require("./routes/orders");
 const getCategoryItems = require("./routes/apis/get_items/getCategoryItems");
 const adminRouter = require("./routes/admin");
 const reviewsRouter = require("./routes/reviews");
+const getUsers = require("./routes/apis/getusers");
 
 const app = express();
 
@@ -59,8 +60,7 @@ app.use("/orders", ordersRouter);
 app.use("/getCategoryItems", getCategoryItems);
 app.use("/admin", adminRouter);
 app.use("/reviews", reviewsRouter);
-
-/////
+app.use("/getUsers", getUsers);
 
 // catch 404 and forward to error handler
 
