@@ -21,13 +21,27 @@ const index = async (req, res) => {
     user = userList.filter((user) => user.email == verfiedUser._id);
     user = user[0];
     }
-    
+    let hour = new Date().getHours();
+    let greet;
+    if(hour>=6 && hour < 12){
+      greet = 'GOOD MORNING ';
+    } else {
+      if(hour >=12 && hour <17){
+        greet = 'GOOD AFTERNOON '
+      } else {
+        if(hour >=17 && hour <21){
+          greet = 'GOOD EVENIN '
+        } else {
+          greet = 'GOOD NIGHT '
+        }
+      }
+    };
 
     res.status(200).render("index", {
       title: "Express",
       ...req.nav,
       userList: userList,
-      VerfiedUser: `HELLO ${user.full_name}`,
+      VerfiedUser: `${greet} ${user.full_name}`,
     });
 
   } catch (e) {
