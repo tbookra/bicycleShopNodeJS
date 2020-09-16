@@ -10,7 +10,7 @@ const loginPage = async (req, res) => {
     req.session.updateErr = [];
     let errArrey = req.session.loginErr ? req.session.loginErr : [];
     //for access users from main page
-    res.render("login", { errArrey: errArrey, ...req.nav });
+    res.status(200).render("login", { errArrey: errArrey, ...req.nav });
     req.session.err = undefined;
   } catch (e) {
     console.log(e);
@@ -23,7 +23,7 @@ const login = async (req, res, next) => {
     if (!email || !password) {
       // handles with if no name was asigned
       req.session.loginErr = ["email or password missing"];
-      res.redirect("/auth/login");
+      res.status(401).redirect("/auth/login");
       return;
     }
 
@@ -35,7 +35,7 @@ const login = async (req, res, next) => {
     if (user1.length == 0) {
       // if there is no such user in the database
       req.session.loginErr = ["the email not exist"];
-      res.redirect("/auth/login");
+      res.status(401).redirect("/auth/login");
     } else {
       let passAuth = await bcrypt.checkPassword(password, user[0].password);
       if (passAuth) {
@@ -48,7 +48,7 @@ const login = async (req, res, next) => {
         req.session.auth_token = token_id;
         let item_obj = req.session.lastLocation;
         if (req.session.lastLocation) {
-          res.redirect(`/${item_obj.category}/${item_obj.item_id}`);
+          res.status(200).redirect(`/${item_obj.category}/${item_obj.item_id}`);
         } else {
           next();
         }
@@ -56,7 +56,7 @@ const login = async (req, res, next) => {
         // if user exists but a wrong password
         req.session.loginErr = ["email or password incorrect"];
 
-        res.redirect("/auth/login");
+        res.status(401).redirect("/auth/login");
       }
     }
   } catch (e) {

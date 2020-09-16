@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const authMiddleware = require("../middleware/auth");
 const Users = require("../models/mySql/Users");
 const Orders = require("../models/mySql/Orders");
 const Cart = require("../models/cart");
@@ -78,7 +77,7 @@ router.post("/placeOrder", async (req, res) => {
       }
       req.session.cart = {};
       req.session.userInfoValidation = [];
-      res.render("afterOrder");
+      res.status(201).render("afterOrder");
     }
   } catch (err) {
     console.log(err);

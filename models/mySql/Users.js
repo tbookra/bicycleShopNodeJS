@@ -30,11 +30,19 @@ let last_access_date = (email) => {
   );
 };
 
-let updateUser = (password, full_name, email) => {
+let updateUser = (password, full_name, dark_mode, email) => {
   return mysql.execute(
     `UPDATE ${DB}.users
-        SET password = ?, full_name = ?, last_password_modification = now() WHERE email = ?;`,
-    [password, full_name, email]
+        SET password = ?, full_name = ?, dark_mode = ? ,last_password_modification = now() WHERE email = ?;`,
+    [password, full_name, dark_mode, email]
+  );
+};
+
+let updateUser_withoutPassword = (full_name, dark_mode, email) => {
+  return mysql.execute(
+    `UPDATE ${DB}.users
+        SET full_name = ?, dark_mode = ?  WHERE email = ?;`,
+    [full_name, dark_mode, email]
   );
 };
 
@@ -67,13 +75,32 @@ let deleteUserInfo = (id) => {
   return mysql.execute(`DELETE FROM ${DB}.payment_info WHERE user_id =?`, [id]);
 };
 
+let giveUserBan = (email) => {
+  return mysql.execute(
+    `UPDATE ${DB}.users
+        SET is_in_ban = 1 WHERE email = ?;`,
+    [email]
+  );
+};
+
+let promoteToAdmin = (email) => {
+  return mysql.execute(
+    `UPDATE ${DB}.users
+        SET is_admin = 1 WHERE email = ?;`,
+    [email]
+  );
+};
+
 module.exports.getAllUsers = getAllUsers;
 module.exports.getUserByID = getUserByID;
 module.exports.getUserByEmail = getUserByEmail;
 module.exports.createUser = createUser;
 module.exports.last_access_date = last_access_date;
 module.exports.updateUser = updateUser;
+module.exports.updateUser_withoutPassword = updateUser_withoutPassword;
 module.exports.deleteUser = deleteUser;
 module.exports.getUserInfo = getUserInfo;
 module.exports.insertUserInfo = insertUserInfo;
 module.exports.deleteUserInfo = deleteUserInfo;
+module.exports.giveUserBan = giveUserBan;
+module.exports.promoteToAdmin = promoteToAdmin;

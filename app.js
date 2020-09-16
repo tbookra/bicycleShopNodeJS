@@ -1,8 +1,10 @@
+require("./models/mongoDB/Reviews");
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const session = require("express-session");
 const logger = require("morgan");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 const navNiddleWare = require("./middleware/nav");
@@ -15,8 +17,24 @@ const childRouter = require("./routes/child");
 const shoppingCartRouter = require("./routes/shoppingCart");
 const ordersRouter = require("./routes/orders");
 const getCategoryItems = require("./routes/apis/get_items/getCategoryItems");
+const adminRouter = require("./routes/admin");
+const reviewsRouter = require("./routes/reviews");
+const getUsers = require("./routes/apis/getusers");
 
 const app = express();
+
+//connect to mongoDB
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+});
+mongoose.connection.on("connected", () => {
+  console.log("Connected to MONGO");
+});
+mongoose.connection.on("error", (err) => {
+  console.log("error connecting to MONGO", err);
+});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -40,6 +58,9 @@ app.use("/child", childRouter);
 app.use("/shoppingCart", shoppingCartRouter);
 app.use("/orders", ordersRouter);
 app.use("/getCategoryItems", getCategoryItems);
+app.use("/admin", adminRouter);
+app.use("/reviews", reviewsRouter);
+app.use("/getUsers", getUsers);
 
 // catch 404 and forward to error handler
 

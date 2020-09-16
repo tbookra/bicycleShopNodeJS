@@ -3,7 +3,6 @@ const router = express.Router();
 const Items = require("../models/mySql/Items");
 const indexPageController = require("../controllers/index/index");
 
-
 router.get("/", indexPageController.index);
 
 router.get("/search/:searchString", async (req, res) => {
@@ -14,6 +13,15 @@ router.get("/search/:searchString", async (req, res) => {
     res.json(itemArr);
   } catch (err) {
     console.log(err);
+  }
+});
+
+router.get("/getTopItems", async (req, res) => {
+  try {
+    const [topItems] = await Items.getMostReqItems();
+    res.status(200).json(topItems);
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 

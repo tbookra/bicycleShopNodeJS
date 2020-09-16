@@ -37,16 +37,42 @@ let getItemsByitemAndCategoty = (searchString, category) => {
 };
 
 let createItem = (itemDetail) => {
-  return mysql.execute(`INSERT INTO ${DB}.items VALUES (null,?,?,?,?)`, [
-    itemDetail.item_name,
-    itemDetail.quntity_in_stock,
-    itemDetail.unit_price,
-    itemDetail.img_url,
+  return mysql.execute(`INSERT INTO ${DB}.items VALUES (null,?,?,?,?,?)`, [
+    itemDetail.createItem_item_name,
+    itemDetail.createItem_category,
+    itemDetail.createItem_quntity,
+    itemDetail.createItem_unit_price,
+    itemDetail.createItem_img_url,
   ]);
 };
 
-let deleteItem = (id) => {
-  return mysql.execute(`DELETE FROM ${DB}.items WHERE item_id = ?`, [id]);
+let updateItem = (itemDetail) => {
+  return mysql.execute(
+    `UPDATE ${DB}.items SET item_name = ?, quntity_in_stock = ?, unit_price = ?, img_url = ? WHERE item_id = ? `,
+    [
+      itemDetail.updateItem_item_name,
+      itemDetail.updateItem_quntity,
+      itemDetail.updateItem_unit_price,
+      itemDetail.updateItem_img_url,
+      itemDetail.updateItem_item_id,
+    ]
+  );
+};
+
+let deleteItem = (itemID) => {
+  return mysql.execute(`DELETE FROM ${DB}.items WHERE item_id = ?`, [itemID]);
+};
+
+let getMostReqItems = () => {
+  return mysql.execute(`
+    SELECT item_id, item_name, SUM(amount) as totalBuy FROM
+      (SELECT oi.order_id,oi.amount, i.item_id, i.item_name
+      FROM ${DB}.order_items oi
+      JOIN ${DB}.items i 
+      on oi.item_id = i.item_id) as t1
+    GROUP BY item_id
+    ORDER BY totalBuy desc
+    LIMIT 10`);
 };
 
 module.exports.getAllItems = getAllItems;
@@ -56,4 +82,6 @@ module.exports.getItemsByitemAndCategoty = getItemsByitemAndCategoty;
 module.exports.getItemByID = getItemByID;
 module.exports.getItemByName = getItemByName;
 module.exports.createItem = createItem;
+module.exports.updateItem = updateItem;
 module.exports.deleteItem = deleteItem;
+module.exports.getMostReqItems = getMostReqItems;

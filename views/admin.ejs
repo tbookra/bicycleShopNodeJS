@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" mode-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/cc62548657.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/javascripts/dark_mode/dark_mode.js" defer async></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    <script src="/javascripts/functionality/childItemSearch.js" defer async></script>
+  </head>
+
+  <body>
+    <div class="continer-fluid">
+      <%- include("components/nav", {cpage:cpage}) %>
+      <form class="continer m-4" method="POST" action="/admin/userPremissions">
+        <h3>User Option:</h3>
+        <div class="form-group m-4">
+          <label for="userEmailForAdmin">User Email address:</label>
+          <input
+            type="email"
+            class="form-control"
+            id="userEmailForAdmin"
+            name="userEmailForAdmin"
+          />
+        </div>
+
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle m-4"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Option:
+          </button>
+          <div class="dropdown-menu m-4" aria-labelledby="dropdownMenuButton">
+            <div class="form-group form-check m-4">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="giveUserBan"
+                name="giveUserBan"
+              />
+              <label class="form-check-label" for="giveUserBan"
+                >Give User Ban</label
+              >
+            </div>
+            <div class="form-group form-check m-4">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="promoteToAdmin"
+                name="promoteToAdmin"
+              />
+              <label class="form-check-label" for="promoteToAdmin"
+                >Promote to Admin</label
+              >
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary m-4">Submit</button>
+        <% if (adminUserErr) { %>
+        <div>
+          <ul>
+            <% for (let item of adminUserErr) { %>
+            <li><%= item%></li>
+            <% } %>
+          </ul>
+        </div>
+        <% } %>
+      </form>
+
+      <div class="continer-fluid m-4">
+        <h3>Item Option:</h3>
+        <form
+          class="continer m-4 "
+          method="POST"
+          action="/admin/itemCreate"
+        >
+          <h3 class="m-4">Create Item</h3>
+
+          <div class="form-group m-4">
+            <label for="createItem_item_name">Item Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="createItem_item_name"
+              name="createItem_item_name"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="createItem_category">Item Category:</label>
+            <select
+              class="form-control"
+              id="createItem_category"
+              name="createItem_category"
+            >
+              <option>child</option>
+              <option>electric</option>
+              <option>mountain</option>
+            </select>
+          </div>
+
+          <div class="form-group m-4">
+            <label for="createItem_quntity">Quntity in Stock:</label>
+            <input
+            value=0
+              type="number"
+              class="form-control"
+              id="createItem_quntity"
+              name="createItem_quntity"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="createItem_unit_price">Unit Price:</label>
+            <input
+            value=0
+              type="number"
+              class="form-control"
+              id="createItem_unit_price"
+              name="createItem_unit_price"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="createItem_img_url">Item Image:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="createItem_img_url"
+              name="createItem_img_url"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary m-4">Create</button>
+          <% if (adminItemCreateErr) { %>
+          <div>
+            <ul>
+              <% for (let item of adminItemCreateErr) { %>
+              <li><%= item%></li>
+              <% } %>
+            </ul>
+          </div>
+          <% } %>
+        </form>
+
+        <form
+          class="continer m-4"
+          method="POST"
+          action="/admin/itemUpdate"
+        >
+          <h3 class="m-4">Update Item</h3>
+          <div class="form-group m-4">
+            <label for="updateItem_item_id">Item ID:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="updateItem_item_id"
+              name="updateItem_item_id"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="updateItem_item_name">Item Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="updateItem_item_name"
+              name="updateItem_item_name"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="updateItem_quntity">Quntity in Stock:</label>
+            <input
+            value=0
+              type="number"
+              class="form-control"
+              id="updateItem_quntity"
+              name="updateItem_quntity"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="updateItem_unit_price">Unit Price:</label>
+            <input
+            value=0
+              type="number"
+              class="form-control"
+              id="updateItem_unit_price"
+              name="updateItem_unit_price"
+            />
+          </div>
+          <div class="form-group m-4">
+            <label for="updateItem_img_url">Item Image:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="updateItem_img_url"
+              name="updateItem_img_url"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary m-4">Update</button>
+          <% if (adminItemUpdateErr) { %>
+          <div>
+            <ul>
+              <% for (let item of adminItemUpdateErr) { %>
+              <li><%= item%></li>
+              <% } %>
+            </ul>
+          </div>
+          <% } %>
+        </form>
+          <form class="continer m-4 " method="POST" action="/admin/itemDelete">
+            <h3 class="m-4">Delete Item</h3>
+            <div class="form-group m-4">
+              <label for="deleteItem_item_id">Item ID:</label>
+              <input type="number" class="form-control" id="deleteItem_item_id" name="deleteItem_item_id" />
+          </div>
+          <button type="submit" class="btn btn-primary m-4">Delete</button>
+          <% if (adminItemDeleteErr) { %>
+          <div>
+            <ul>
+              <% for (let item of adminItemDeleteErr) { %>
+              <li><%= item%></li>
+              <% } %>
+            </ul>
+          </div>
+          <% } %>
+        </form>
+    </div>
+  </body>
+</html>

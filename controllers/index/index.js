@@ -6,10 +6,10 @@ const index = async (req, res) => {
     let user;
     let userList = await Users.getAllUsers();
     userList = userList[0];
-    console.log('regis', req.session.justRegistered);
+    console.log('regis', req.session.justRegistered); 
     if(req.session.justRegistered){
-      user = req.session.name;
-     } else {
+      user = req.session.user;
+    } else {
       let verfiedUser = req.session.auth_token
       ? await JWT.verifyToken(req.session.auth_token)
       : undefined;
@@ -21,18 +21,33 @@ const index = async (req, res) => {
     user = userList.filter((user) => user.email == verfiedUser._id);
     user = user[0];
     }
-    
-
-    res.render("index", {
+    let hour = new Date().getHours();
+    let greet;
+    if(hour>=6 && hour < 12){
+      greet = 'GOOD MORNING ';
+    } else {
+      if(hour >=12 && hour <17){
+        greet = 'GOOD AFTERNOON '
+      } else {
+        if(hour >=17 && hour <21){
+          greet = 'GOOD EVENING '
+        } else {
+          greet = 'GOOD NIGHT '
+        }
+      }
+    };
+       
+    res.status(200).render("index", {
       title: "Express",
       ...req.nav,
       userList: userList,
-      VerfiedUser: `HELLO ${user.full_name}`,
+      VerfiedUser: `${greet} ${user.full_name}`,
     });
 
   } catch (e) {
+    req.session.user = undefined;
     req.session.name = undefined;
-    res.render("index", { title: "Express", ...req.nav, VerfiedUser: "" });
+    res.status(200).render("index", { title: "Express", ...req.nav, VerfiedUser: "" });
     console.log(e);
   }
 };
