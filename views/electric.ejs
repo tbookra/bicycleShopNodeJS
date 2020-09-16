@@ -39,11 +39,15 @@
       async
     ></script>
     <script src="/javascripts/dark_mode/dark_mode.js" defer async></script>
-    <script src="/javascripts/last_location/last_location_set.js" defer async></script>
+    <script
+      src="/javascripts/last_location/last_location_set.js"
+      defer
+      async
+    ></script>
   </head>
 
   <body>
-    <div class="container">
+    <div class="continer-fluid">
       <%- include("components/nav", {cpage:cpage}) %>
       <div id="main" class="row row-cols-1 row-cols-md-3">
         <%- include("components/electric_item", {electricarr:electricarr}) %>
