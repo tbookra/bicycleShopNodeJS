@@ -5,8 +5,13 @@
     <small class="card-text"><%=review.description%></small>
     <hr />
     <span class="card-text">
+     
       <% if(review.rating > "0") { %>
-            <p class="card-text"><%=review.rating%></p>
+        Rating:
+       <% for(let i=0; i < parseInt(review.rating); i++) { %>
+           <span class="card-text"> <i class="fas fa-star"></i></span>
+         <% } %> 
+           
       <% } else { %> 
             <small class="card-text">There is no rating for this review</small>
       <% } %>
