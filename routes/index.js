@@ -1,25 +1,28 @@
-var express = require("express");
-const clients = require('../models/clients');
-const JWT = require("../auth/jwt");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const Items = require("../models/mySql/Items");
+const indexPageController = require("../controllers/index/index");
 
-/* GET home page. */
-router.get("/", async function (req, res) {
-try{
-      let verfiedUser = req.session.auth_token ? await JWT.verifyToken(req.session.auth_token) : undefined ;
-      verfiedUser ? req.session.name = verfiedUser._id : req.session.name = undefined;
-      let userList = await clients.selectUsers();
-      module.exports.userList = userList[0];
-      let user = userList[0].filter((user) => user.email == verfiedUser._id);
-      res.render("index", { title: "Express", ...req.nav, userList: userList[0], VerfiedUser: `HELLO ${user[0].full_name}`});
-} catch(e){
-  req.session.name = undefined;
-  res.render("index", { title: "Express", ...req.nav, VerfiedUser: ""});
-  console.log(e);
-  
-}
-  
+router.get("/", indexPageController.index);
+
+router.get("/search/:searchString", async (req, res) => {
+  const { searchString } = req.params;
+  console.log(searchString);
+  try {
+    let [itemArr] = await Items.getItemsBySearch(searchString);
+    res.json(itemArr);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
+router.get("/getTopItems", async (req, res) => {
+  try {
+    const [topItems] = await Items.getMostReqItems();
+    res.status(200).json(topItems);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
 module.exports = router;

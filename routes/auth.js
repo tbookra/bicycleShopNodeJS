@@ -1,9 +1,23 @@
 const express = require("express");
-
-const usesHandling = require('../controllers/usersHandling');
 const router = express.Router();
 
-router.get("/", usesHandling.loginPage );
-router.post("/",usesHandling.login);
-router.get("/logout", usesHandling.logout );
+const loginController = require("../controllers/auth/login");
+const logoutController = require("../controllers/auth/logout");
+const signinController = require("../controllers/auth/signin");
+const updateController = require("../controllers/auth/update");
+
+const authMiddleware = require("../middleware/auth"); 
+const passwordToModify = require('../middleware/passwordToModify');
+
+router.get("/login", loginController.loginPage);
+router.post("/login", loginController.login,passwordToModify);
+
+router.get("/logout", logoutController.logout);
+
+router.get("/signin", signinController.signinPage);
+router.post("/signin", signinController.signin);
+
+router.get("/update", authMiddleware, updateController.updatePage);
+router.post("/update", updateController.update);
+
 module.exports = router;

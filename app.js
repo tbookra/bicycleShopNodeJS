@@ -1,28 +1,40 @@
+require("./models/mongoDB/Reviews");
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const session = require("express-session");
 const logger = require("morgan");
+const mongoose = require("mongoose");
 require("dotenv").config();
-
-
 
 const navNiddleWare = require("./middleware/nav");
 
 const indexRouter = require("./routes/index");
-const electricRouter = require("./routes/electric");
-const mountainRouter = require('./routes/mountain');
-const childRouter = require('./routes/child');
-const shoppingCartRouter = require('./routes/shopping_cart');
 const authRouter = require("./routes/auth");
-const newUsersRouter = require('./routes/signin');
-const updateUsersRouter = require('./routes/update');
-const logoutRouter = require('./routes/logout');
-
-
+const electricRouter = require("./routes/electric");
+const mountainRouter = require("./routes/mountain");
+const childRouter = require("./routes/child");
+const shoppingCartRouter = require("./routes/shoppingCart");
+const ordersRouter = require("./routes/orders");
+const getCategoryItems = require("./routes/apis/get_items/getCategoryItems");
+const adminRouter = require("./routes/admin");
+const reviewsRouter = require("./routes/reviews");
+const getUsers = require("./routes/apis/getusers");
 
 const app = express();
 
+//connect to mongoDB
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+});
+mongoose.connection.on("connected", () => {
+  console.log("Connected to MONGO");
+});
+mongoose.connection.on("error", (err) => {
+  console.log("error connecting to MONGO", err);
+});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -39,17 +51,18 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(navNiddleWare);
 
 app.use("/", indexRouter);
+app.use("/auth", authRouter);
 app.use("/electric", electricRouter);
 app.use("/mountain", mountainRouter);
 app.use("/child", childRouter);
-app.use("/shopping", shoppingCartRouter);
-app.use("/auth", authRouter);
-app.use("/signin", newUsersRouter);
-app.use("/update", updateUsersRouter);
-app.use("/logout", logoutRouter);
+app.use("/shoppingCart", shoppingCartRouter);
+app.use("/orders", ordersRouter);
+app.use("/getCategoryItems", getCategoryItems);
+app.use("/admin", adminRouter);
+app.use("/reviews", reviewsRouter);
+app.use("/getUsers", getUsers);
 
 // catch 404 and forward to error handler
-
 
 app.use(function (req, res, next) {
   next(createError(404));

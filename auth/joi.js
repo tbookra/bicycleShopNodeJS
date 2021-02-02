@@ -2,27 +2,25 @@ const Joi = require("@hapi/joi");
 
 const schemaAuth = Joi.object({
   email: Joi.string().email().min(6).required().messages({
-    'string.email': 'email is in incorrect form!',
-    'string.min': 'require an email with more letters!',
-    'string.empty': 'An email is required',
+    "string.email": "email is in incorrect form!",
+    "string.min": "require an email with more letters!",
+    "string.empty": "An email is required",
   }),
-  password: Joi.string().pattern(new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,30})$/)).required().messages({ 
-    'string.empty': 'A password is required',
-    'string.pattern.base': 'Bad password!!. A password must contain at least 8 charecters, no more than 30 charerters, at least one digit and one capital letter.',
+  password: Joi.string().min(5).required().messages({
+    "string.empty": "A password is required",
+    "string.pattern.base":
+      "Bad password!!. A password must contain at least 8 charecters, no more than 30 charerters, at least one digit and one capital letter.",
   }),
   full_name: Joi.string().required().messages({
-    'string.min': "Your name is required!"
+    "string.min": "Your name is required!",
   }),
-  
 });
 
-
-
-const validateInputAsync = ({email,password,full_name}) => {
-return schemaAuth.validateAsync({email,password,full_name}, { abortEarly: false });
+const validateInputAsync = ({ email, password, full_name }) => {
+  return schemaAuth.validateAsync(
+    { email, password, full_name },
+    { abortEarly: false }
+  );
 };
 
-
 module.exports.validateInputAsync = validateInputAsync;
-
-
